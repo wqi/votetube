@@ -67,6 +67,7 @@ var updateVoteEntry = function(data, n) {
 		thumbsUp.setAttribute('onclick','vote(\'' + thumbsUp.id + '\');');
 		thumbsDown.setAttribute('onclick','vote(\'' + thumbsDown.id + '\');');
 	}
+
 	videoQueue[n] = data;
 }
 

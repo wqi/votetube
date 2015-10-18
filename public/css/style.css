@@ -25,7 +25,7 @@ html, body {
 	color: white;
 	font-size: 40px;
 	line-height: 70px;
-	margin-left: 20px;	
+	margin-left: 20px;
 	white-space: nowrap;
   	overflow: hidden;
   	text-overflow: ellipsis;
@@ -106,6 +106,7 @@ html, body {
 	max-width: 400px;
 	min-width: 300px;
 	z-index: 10;
+	overflow: hidden;
 	background-color: rgba(0,0,0,0.5);
 	transition: right 0.3s;
 	-moz-transition: right 0.3s;
@@ -144,8 +145,8 @@ html, body {
 
 .triggers:checked + label i {
 	color: #ffc535 !important;
-	-moz-transform:rotate(90deg); 
-	-webkit-transform:rotate(90deg); 
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
 	-ms-transform:rotate(90deg);
 	transform:rotate(90deg);
 	-moz-transition: all 0.3s ease;
@@ -162,7 +163,9 @@ html, body {
 .voting {
 	text-align: center;
 	height: 50%;
-	overflow: scroll;
+	overflow: auto;
+	padding-right: 15px;
+    border-bottom: 1px solid #fff;
 }
 
 .voting p {
@@ -216,6 +219,15 @@ form {
 	color: white;
 }
 
+.chat {
+    height: 50%;
+    padding-bottom: 110px;
+}
+
+.chatArea {
+    height: 100%;
+}
+
 .chat-form {
 	position: absolute;
 	width: 100%;
@@ -232,10 +244,10 @@ form {
     height: 30px;
     padding: 10px 5px;
     padding-right: 53px;
-    float: left;   
+    float: left;
     border: 0;
     background: #eee;
-    border-radius: 3px;     
+    border-radius: 3px;
 }
 
 .usernameInput {
@@ -255,14 +267,26 @@ form {
     cursor: pointer;
     height: 30px;
     color: #fff;
-    text-transform: uppercase;  
+    text-transform: uppercase;
     text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+}
+
+.messages {
+	color: #fff;
+    list-style: none;
+    height: 100%;
+    overflow-y: scroll;
+    padding-left: 10px;
+}
+
+.messages .username {
+    font-weight: bold;
 }
 
 .messageSubmit {
 	margin-left: -50px;
 	width: 50px;
-	background: #d83c3c; 
+	background: #1e8a04;
 }
 
 .usernameSubmit {

@@ -14,6 +14,7 @@ var vote = function(elemid) {
 			/*elem.classList.add('upvotecolor');
 			document.getElementById("thumbs-down." + id[1]).classList.remove('downvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
+
 			socket.emit('unvote', {voteDir: 'downvote', videoId: id[1]});*/
 			/*vote2("thumbs-down." + id[1]);
 			vote2("thumbs-up." + id[1]);*/
@@ -27,6 +28,7 @@ var vote = function(elemid) {
 			elem.classList.remove('downvotecolor');
 			socket.emit('unvote', {voteDir: vote, videoId: id[1]});
 		} else if (document.getElementsByClassName('upvotecolor').length > 0) {
+<<<<<<< HEAD
 			//document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
 			//vote2("thumbs-up." + id[1]);
 			//vote2("thumbs-down." + id[1]);
@@ -34,6 +36,13 @@ var vote = function(elemid) {
 			//socket.emit('vote', {voteDir: vote, videoId: id[1]});
 			//socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
 		} 
+=======
+			elem.classList.add('downvotecolor');
+			document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
+			socket.emit('vote', {voteDir: vote, videoId: id[1]});
+			socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
+		}
+>>>>>>> c0e134113a83901f91d2cf5645aae1f9329997a2
 		else {
 			elem.classList.add('downvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
@@ -96,13 +105,20 @@ var vote2 = function(elem2) {
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
 			if (event.keyCode == 13) {
+				event.cancelubble = true;
+				event.returnValue = false;
+				event.preventDefault();
+				event.stopPropagation();
+
 				messageSend();
 			}
 		}
 
 		function messageSend() {
 			var message = messageInput.value;
-			socket.emit('send msg', {username: username, msg: message});
+			if (message !== "") {
+				socket.emit('send msg', {username: username, msg: message});
+			}
 			messageInput.value = "";
 			//addMessage(username, message);
 		}
@@ -121,8 +137,21 @@ var vote2 = function(elem2) {
 
 		function addMessage(username, message) {
 			var element = document.createElement('li');
-			element.innerHTML = username + ": " + message;
+
+			var usernameElement = document.createElement('span');
+			usernameElement.className = 'username';
+			usernameElement.innerHTML = username + ": ";
+			var msgElement = document.createElement('span');
+			msgElement.innerHTML = message;
+
+			element.appendChild(usernameElement);
+			element.appendChild(msgElement);
+
 			messages.appendChild(element);
+
+			if (messages.scrollHeight > messages.clientHeight) {
+			  	messages.scrollTop = messages.scrollHeight - messages.clientHeight;
+			}
 		}
 
 		socket.on('receive msg', function(data) {
@@ -137,6 +166,7 @@ var vote2 = function(elem2) {
 			}
 			console.log(toSend);
 			socket.emit('add video', toSend);
+			videoUrlInput.value = "";
 		}
 	});
 }) ();

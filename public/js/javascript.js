@@ -55,6 +55,11 @@
 		}
 
 		document.addEventListener('mousemove', getCursorPosition, false);
+
+		document.getElementById('createbutton').addEventListener('click', function() {
+			var newRoomUrl = window.location.origin + '/' + document.getElementById('nameinput').value;
+			window.location.href = newRoomUrl;
+		});
 	};
 
 	window.addEventListener('resize', function(event) {

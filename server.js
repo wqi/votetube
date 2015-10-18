@@ -206,11 +206,13 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('send msg', function (data) {
-		var chatMessage = {
-			username: user.name,
-			msg: data.msg
+		if (data.msg != "") {
+			var chatMessage = {
+				username: user.name,
+				msg: data.msg
+			}
+			io.to(room.roomName).emit('receive msg', chatMessage);
 		}
-		io.to(room.roomName).emit('receive msg', chatMessage);
 	});
 
 });
@@ -227,13 +229,13 @@ function updateRoom (room) {
 		// already past end of video, update with next video
 		if (room.currentTime + syncDuration > room.currentVideo.length) {
 			io.to(room.roomName).emit('video ended', {videoId: room.currentVideo.videoId});
+			delete room.videos[room.currentVideo.videoId];
 			room.currentVideo = null;
 		}
 	}
 
 	// get new video if no current video
 	if (room.currentVideo === null) {
-		console.log(_.size(room.videos));
 		if (_.size(room.videos) > 0) {
 			// Number.MIN_SAFE_INTEGER = most negative number
 			// need to account for negative voted videos too
@@ -241,8 +243,6 @@ function updateRoom (room) {
 			for (var k in room.videos) {
 				room.videos[k].points > max.points ? max = room.videos[k] : max = max;
 			}
-
-			delete room.videos[max.videoId];
 
 			room.currentVideo = max;
 			room.currentTime = 0;

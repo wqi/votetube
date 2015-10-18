@@ -31,3 +31,27 @@ socket.on('video added', function(data) {
 	var id = data.url.split('?v=')[1].split('&')[0];
 	getVideoInfo(id, updateVoteEntry, videoQueue.length);
 })
+
+socket.on('video ended', function(data) {
+	for (var i=0; i<videoQueue.length; i++) {
+		if (videoQueue[i].id == data.videoId) {
+			videoQueue.splice(i, 1);
+			console.log(videoQueue);
+			$('.voting').empty();
+			for (var j=0; j<videoQueue.length; j++) {
+				generateVoteEntry();
+				var id = videoQueue[j].id;
+				getVideoInfo(id, updateVoteEntry, j);
+			}
+			return;
+		}
+	}
+});
+
+socket.on('video voted', function(data) {
+	for (var i=0; i<videoQueue.length; i++) {
+		if (videoQueue[i].id == data.videoId) {
+			$('.video-entry:nth-child(' + (i+1) + ')').children('.counter').text(data.points);
+		}
+	}
+});
