@@ -29,6 +29,7 @@ html, body {
 
 .top-bar-hover {
 	top: 0 !important;
+	z-index: 10;
 }
 
 #top-bar-btns {
@@ -38,6 +39,12 @@ html, body {
 .background {
 	width: 100%;
 	display: block;
+}
+
+#youtube {
+	width: 100%;
+	display: block;
+	z-index: -1;
 }
 
 .side-bar {
