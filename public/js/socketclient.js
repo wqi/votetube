@@ -67,40 +67,42 @@
 			var vote;
 			console.log(this);
 			var className = this.classList[1];
+			var id = this.id.split(".");
 			if (className.indexOf('up') != -1) {
 				vote = 'upvote';
 				if (document.getElementsByClassName('upvotecolor').length > 0) {
 					this.classList.remove('upvotecolor');
-					socket.emit('unvote', {voteDir: vote});
+					socket.emit('unvote', {voteDir: vote, videoId: id[1]});
 
 				} else if (document.getElementsByClassName('downvotecolor').length > 0) {
 					this.classList.add('upvotecolor');
-					document.querySelector('.fa-thumbs-down').classList.remove('downvotecolor');
-					socket.emit('vote', {voteDir: vote});
-					socket.emit('unvote', {voteDir: 'downvote'});
+					document.getElementById("thumbs-down." + id[1]).classList.remove('downvotecolor');
+					socket.emit('vote', {voteDir: vote, videoId: id[1]});
+					socket.emit('unvote', {voteDir: 'downvote', videoId: id[1]});
 				} 
 				else {
 					this.classList.add('upvotecolor');
-					socket.emit('vote', {voteDir: vote});
+					socket.emit('vote', {voteDir: vote, videoId: id[1]});
 				}
 			} else {
 				vote = 'downvote';
 				if (document.getElementsByClassName('downvotecolor').length > 0) {
 					this.classList.remove('downvotecolor');
-					socket.emit('unvote', {voteDir: vote});
+					socket.emit('unvote', {voteDir: vote, videoId: id[1]});
 				} else if (document.getElementsByClassName('upvotecolor').length > 0) {
 					this.classList.add('downvotecolor');
-					document.querySelector('.fa-thumbs-up').classList.remove('upvotecolor');
-					socket.emit('vote', {voteDir: vote});
-					socket.emit('unvote', {voteDir: 'upvote'});
+					document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
+					socket.emit('vote', {voteDir: vote, videoId: id[1]});
+					socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
 				} 
 				else {
 					this.classList.add('downvotecolor');
-					socket.emit('vote', {voteDir: vote});
+					socket.emit('vote', {voteDir: vote, videoId: id[1]});
 				}
 			}
 			console.log(vote);
 		}
+
 
 		function submitUrl() {
 			var url = urlinput.value;
@@ -150,6 +152,12 @@
 				var id = sorted[i].split('?v=')[1].split('&')[0];
 				getVideoInfo(id, updateVoteEntry, i);		
 			}
+		});
+
+		socket.on('video voted', function(data) {
+			var points = data.points;
+			var id = data.videoId;
+			var counterOfReturnedObject = document.querySelector("thumbs-up." + id).parentNode.children[1].innerHTML = points;
 		});
 	});
 }) ();

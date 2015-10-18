@@ -49,8 +49,7 @@ var parseInfo = function(data) {
 		'uploader': data.items[0].snippet.channelTitle,
 		'thumbURL': data.items[0].snippet.thumbnails.default.url
 	}
-	return res;
-	
+	return res;	
 }
 
 var updateVoteEntry = function(data, n) {
