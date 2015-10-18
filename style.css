@@ -79,6 +79,13 @@ html, body {
 	right: 0 !important;
 }
 
+#side-bar-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 5px;
+}
+
 label[for="pin"] {
 	color: white;
 	z-index: 2;
@@ -98,8 +105,7 @@ label[for="pin"] {
 
 .voting {
 	text-align: center;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
+	height: 50%;
 }
 
 .voting p {
@@ -113,6 +119,10 @@ label[for="pin"] {
 	cursor: pointer;
 }
 
+.video-entry {
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+}
 
 .vote-arrows {
 	width: 10%;
