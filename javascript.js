@@ -7,7 +7,7 @@
 		var thumbsUp = document.getElementsByClassName("fa-thumbs-up")[0];
 		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
 		var voteCounter = document.getElementById("counter");
-		var tabs = [document.getElementsByClassName("top-tab")[0], document.getElementsByClassName("side-tab")[0]];
+		var tabs = [document.querySelector(".top-tab img"), document.querySelector(".side-tab img")];
 
 
 		pin.onclick = pinSidebar;
@@ -32,7 +32,7 @@
 			// Mouse moves. Now show tabs
 			clearTimeout(hideTabs);
 			tabs.forEach(function(t) {
-				t.style.display = "";
+				t.style.opacity = 0.5;
 			});
 
 			// Hover for top bar
@@ -56,7 +56,7 @@
 				if (document.getElementsByClassName("side-bar-hover").length == 0 && 
 						document.getElementsByClassName("top-bar-hover").length == 0) {
 					tabs.forEach(function(t) {
-						t.style.display = "none";
+						t.style.opacity = 0;
 					});
 				}
 			}, 4000);
