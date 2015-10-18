@@ -25,7 +25,7 @@ html, body {
 	color: white;
 	font-size: 40px;
 	line-height: 70px;
-	margin-left: 20px;	
+	margin-left: 20px;
 	white-space: nowrap;
   	overflow: hidden;
   	text-overflow: ellipsis;
@@ -145,8 +145,8 @@ html, body {
 
 .triggers:checked + label i {
 	color: #ffc535 !important;
-	-moz-transform:rotate(90deg); 
-	-webkit-transform:rotate(90deg); 
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
 	-ms-transform:rotate(90deg);
 	transform:rotate(90deg);
 	-moz-transition: all 0.3s ease;
@@ -234,10 +234,10 @@ form {
     height: 30px;
     padding: 10px 5px;
     padding-right: 53px;
-    float: left;   
+    float: left;
     border: 0;
     background: #eee;
-    border-radius: 3px;     
+    border-radius: 3px;
 }
 
 .usernameInput {
@@ -257,18 +257,23 @@ form {
     cursor: pointer;
     height: 30px;
     color: #fff;
-    text-transform: uppercase;  
+    text-transform: uppercase;
     text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
 }
 
 .messages {
 	color: #fff;
+    list-style: none;
+}
+
+.messages .username {
+    font-weight: bold;
 }
 
 .messageSubmit {
 	margin-left: -50px;
 	width: 50px;
-	background: #d83c3c; 
+	background: #d83c3c;
 }
 
 .usernameSubmit {
