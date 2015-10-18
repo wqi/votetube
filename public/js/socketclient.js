@@ -37,7 +37,11 @@
 		thumbsUp.onclick = vote;
 		thumbsDown.onclick = vote;
 
-		var socket = io();
+		var videoUrlInput = document.querySelector('#video-url')
+		var videoSubmit = document.querySelector('#submit-video');
+		videoSubmit.onclick = submitVideo;
+
+		var socket = io('127.0.0.1:1337');
 
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
@@ -102,6 +106,14 @@
 			var msg = data.msg;
 			addMessage(username, msg);
 		});
+
+		function submitVideo() {
+			var toSend = {
+				'videoURL': videoUrlInput.value
+			}
+			console.log(toSend);
+			socket.emit('video added', toSend);
+		}
 	});
 }) ();
 

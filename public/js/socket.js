@@ -1,4 +1,4 @@
-var socket = io('http://votetube.cloudapp.net:1337');
+var socket = io('127.0.0.1:1337');
 
 socket.on('sync video', function() {
 	console.log('Video synced');
@@ -15,7 +15,7 @@ socket.on('connect',function() {
 $(function() {
 	$('#submit-video').click(function() {
 		var toSend = {
-			'videoURL': $('#video-url').val();
+			'videoURL': $('#video-url').val()
 		}
 		socket.emit('video added', toSend);
 	});
@@ -25,9 +25,9 @@ socket.on('video list', function(data) {
 	var sorted = sortVideos(data);
 	var length = Object.keys(sorted).length;
 	$('.voting').empty();
-	// for (var i=0; i++; i<length) {
-	// 	generateVoteEntry();
-	// 	var id = sorted[i].split('?v=')[1].split('&')[0];
-		
-	// }
+	for (var i=0; i++; i<length) {
+		generateVoteEntry();
+		var id = sorted[i].split('?v=')[1].split('&')[0];
+		getVideoInfo(id, updateVoteEntry, i);		
+	}
 })

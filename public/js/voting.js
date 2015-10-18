@@ -1,14 +1,14 @@
 $(function() {
 
-	$('#submit-video').click(function() { submitVideo(); });
+	// $('#submit-video').click(function() { submitVideo(); });
 
-	var submitVideo = function() {
-		$('.voting').empty();
-		generateVoteEntry();
-		var url = $('#video-url').val();
-		var id = url.split('?v=')[1].split('&')[0];
-		getVideoInfo(id, updateVoteEntry);
-	}
+	// var submitVideo = function() {
+	// 	$('.voting').empty();
+	// 	generateVoteEntry();
+	// 	var url = $('#video-url').val();
+	// 	var id = url.split('?v=')[1].split('&')[0];
+	// 	getVideoInfo(id, updateVoteEntry);
+	// }
 
 	
 });
@@ -32,11 +32,14 @@ var generateVoteEntry = function() {
 	$('.voting').append(domBlock);
 }
 
-var getVideoInfo = function(id, callback) {
+var getVideoInfo = function(id, callback, callback_param) {
 	var requestURL = 'https://www.googleapis.com/youtube/v3/videos?id=' + id + '&key=' + apiKey + '&part=snippet';
 	$.getJSON(requestURL, function(data) {
 		var parsedInfo = parseInfo(data);
-		callback(parsedInfo);
+		if (callback_param === undefined)
+			callback(parsedInfo);
+		else
+			callback(parsedInfo, callback_param);
 	});
 }
 
@@ -50,11 +53,11 @@ var parseInfo = function(data) {
 	
 }
 
-var updateVoteEntry = function(data) {
-	$('.video-title').text(data.title);
-	$('.video-uploader').text(data.uploader);
-	$('.video-thumbnail').empty();
-	$('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
+var updateVoteEntry = function(data, n) {
+	$('.video-entry:nth-child(' + n + ')').children('.video-info-test').children('.video-title').text(data.title);
+	$('.video-entry:nth-child(' + n + ')').children('.video-info-test').children('.video-uploader').text(data.uploader);
+	$('.video-entry:nth-child(' + n + ')').children('.video-thumbnail').empty();
+	$('.video-entry:nth-child(' + n + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
 }
 
 var sortVideos = function(videoArray) {

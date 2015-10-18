@@ -129,6 +129,8 @@ io.on('connection', function (socket) {
 			return;
 		}
 
+		console.log(data);
+
 		if (data.videoURL in room.videos) {
 			socket.emit("error", "Video has already been submitted.");
 			return;
