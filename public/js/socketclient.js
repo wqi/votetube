@@ -81,6 +81,11 @@ var vote = function(elem) {
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
 			if (event.keyCode == 13) {
+				event.cancelubble = true;
+				event.returnValue = false;
+				event.preventDefault();
+				event.stopPropagation();
+
 				messageSend();
 			}
 		}
