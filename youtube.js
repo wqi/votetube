@@ -28,6 +28,9 @@ var syncVideo = function(id, timestamp) {
   var currentID = player.getVideoData()['video_id']; 
   if (currentID != id) {
     player.loadVideoById(id, timestamp, "default");
+    getVideoInfo(id, function(data) {
+      $('#top-video-title').text(data.title);
+    })
   } else {
     if (Math.abs(player.getCurrentTime() - timestamp) > 3) {
       player.seekTo(timestamp, true);
