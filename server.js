@@ -60,7 +60,10 @@ server.listen(runningPortNumber);
 
 
 
-
+function User(socketId, name) {
+	this.socketId = socketId;
+	this.name = name;
+}
 
 function Video(url) {
 	this.points = 0;
@@ -108,6 +111,7 @@ io.on('connection', function (socket) {
 
 		user = new User(socket.id, userName);
 
+		// TODO: not working code
 		if (room[roomName] != null) {
 			room = rooms[roomName];
 			socket.join(room.roomName);
@@ -117,6 +121,8 @@ io.on('connection', function (socket) {
 			room.roomName = data.roomName;
 
 		}
+
+		socket.emit('video list', room.videos);
 	});
 
 	socket.on('add video', function (data) {
@@ -156,6 +162,7 @@ io.on('connection', function (socket) {
 		}
 
 		var video = room.videos[data.videoId];
+		// ensure user has voted for this video
 		if (_.contains(video.votedUsers, user)) {
 			if (data.voteDir === "upvote") {
 				video.points--;
@@ -174,8 +181,16 @@ io.on('connection', function (socket) {
 			var msg = "You have not voted yet, you cannot unvote!";
 			socket.emit("error", msg);
 		}
-
 	});
+
+	socket.on('msg', function (data) {
+		var chatMessage = {
+			username: user.name,
+			msg: data.msg
+		}
+		io.to(room.roomName).emit('msg', chatMessage);
+	})
+
 });
 
 
