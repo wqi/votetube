@@ -162,6 +162,7 @@ html, body {
 .voting {
 	text-align: center;
 	height: 50%;
+	overflow: scroll;
 }
 
 .voting p {
