@@ -213,7 +213,7 @@ io.on('connection', function (socket) {
 
 function updateRoom (room) {
 	var sync = {
-		videoUrl: "",
+		videoId: "",
 		timestamp: 0
 	};
 
@@ -241,16 +241,16 @@ function updateRoom (room) {
 
 			room.currentVideo = max;
 			room.currentTime = 0;
-			sync.videoUrl = room.currentVideo.url;
+			sync.videoId = url.parse(room.currentVideo.url, true).query.v;
 			sync.timestamp = 0;
 		} else {
-			sync.videoUrl = null;
+			sync.videoId = null;
 			sync.timestamp = -1;
 		}
 	} else {
 		// currently playing video, update timestamp
 		room.currentTime += 10;
-		sync.videoUrl = room.currentVideo.url;
+		sync.videoId = url.parse(room.currentVideo.url, true).query.v;
 		sync.timestamp = room.currentTime;
 	}
 
