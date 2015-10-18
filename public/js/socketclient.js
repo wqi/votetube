@@ -74,6 +74,7 @@
 				if (document.getElementsByClassName('upvotecolor').length > 0) {
 					this.classList.remove('upvotecolor');
 					socket.emit('unvote', {voteDir: vote});
+
 				} else if (document.getElementsByClassName('downvotecolor').length > 0) {
 					this.classList.add('upvotecolor');
 					document.querySelector('.fa-thumbs-down').classList.remove('downvotecolor');

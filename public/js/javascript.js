@@ -29,9 +29,12 @@
 		function getCursorPosition(e){
 			// Mouse moves. Now show tabs
 			clearTimeout(mouseTimer);
-			tabs.forEach(function(t) {
-				t.style.opacity = 0.5;
-			});
+			if (document.getElementsByClassName("top-bar-hover").length == 0 && 
+				document.getElementsByClassName("side-bar-hover").length == 0) {
+				tabs.forEach(function(t) {
+					t.style.opacity = 0.5;
+				});
+			}
 
 			// Hover for top bar
 			if (e.pageY < 30) {
@@ -54,12 +57,9 @@
 		}
 
 		function hideTabs() {
-			if (document.getElementsByClassName("side-bar-hover").length == 0 && 
-						document.getElementsByClassName("top-bar-hover").length == 0) {
-				tabs.forEach(function(t) {
-					t.style.opacity = 0;
-				});
-			}
+			tabs.forEach(function(t) {
+				t.style.opacity = 0;
+			});
 		}
 
 		document.addEventListener('mousemove', getCursorPosition, false);
