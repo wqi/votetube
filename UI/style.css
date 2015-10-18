@@ -116,7 +116,8 @@ form {
 }
 
 #createbutton {
-	background-color: pink;
+	background-color: #3a5ef2;
+	color: white;
 }
 
 .chat {
