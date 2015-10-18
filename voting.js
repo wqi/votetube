@@ -24,3 +24,23 @@ $(function() {
 		$('.video-thumbnail').append('<img src="' + thumbURL + '" width="90px">');
 	}
 });
+
+var sortVideos = function(videoArray) {
+	var tuples = [];
+	var sortedVideos = [];
+	for (var video in videoArray) {
+		tuples.push([video["id"], video["points"]]);
+	}
+	tuples.sort(function(a, b) {
+		a = a[1];
+		b = b[1];
+
+		return a < b ? -1 : (a > b ? 1 : 0);
+	});
+	for (var i = 0; i < tuples.length; i++) {
+		var id = tuples[i][0];
+		sortedVideos.push(id);
+	}
+
+	return sortedVideos;
+}
