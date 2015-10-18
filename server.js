@@ -23,6 +23,7 @@ var moment = require('moment');
 
 yt.setKey(key.youtube);
 
+var syncDuration = 5; // seconds
 
 app.configure(function(){
 	// I need to access everything in '/public' directly
@@ -119,7 +120,7 @@ io.on('connection', function (socket) {
 			room.users.push(user);
 			rooms[roomName] = room;
 			// send sync event
-			room.intervalObject	= setInterval(updateRoom, 10000, room);
+			room.intervalObject	= setInterval(updateRoom, syncDuration*1000, room);
 		}
 
 		socket.emit('video list', room.videos);
@@ -224,7 +225,8 @@ function updateRoom (room) {
 
 	if (room.currentVideo !== null) {
 		// already past end of video, update with next video
-		if (room.currentTime + 10 > room.currentVideo.length) {
+		if (room.currentTime + syncDuration > room.currentVideo.length) {
+			io.to(room.roomName).emit('video ended', {videoId: room.currentVideo.videoId});
 			room.currentVideo = null;
 		}
 	}
@@ -252,7 +254,7 @@ function updateRoom (room) {
 		}
 	} else {
 		// currently playing video, update timestamp
-		room.currentTime += 10;
+		room.currentTime += syncDuration;
 		sync.videoId = url.parse(room.currentVideo.url, true).query.v;
 		sync.timestamp = room.currentTime;
 	}
@@ -260,22 +262,6 @@ function updateRoom (room) {
 	console.log(sync);
 
 	io.to(room.roomName).emit('sync video', sync);
-}
-
-
-
-
-
-
-
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
 }
 
 
