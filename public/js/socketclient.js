@@ -37,7 +37,11 @@
 		thumbsUp.onclick = vote;
 		thumbsDown.onclick = vote;
 
-		var socket = io();
+		var videoUrlInput = document.querySelector('#video-url')
+		var videoSubmit = document.querySelector('#submit-video');
+		videoSubmit.onclick = submitVideo;
+
+		var socket = io('127.0.0.1:1337');
 
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
@@ -127,6 +131,25 @@
 			var username = data.username;
 			var msg = data.msg;
 			addMessage(username, msg);
+		});
+
+		function submitVideo() {
+			var toSend = {
+				'videoURL': videoUrlInput.value
+			}
+			console.log(toSend);
+			socket.emit('add video', toSend);
+		}
+
+		socket.on('video list', function(data) {
+			var sorted = sortVideos(data);
+			var length = Object.keys(sorted).length;
+			$('.voting').empty();
+			for (var i=0; i++; i<length) {
+				generateVoteEntry();
+				var id = sorted[i].split('?v=')[1].split('&')[0];
+				getVideoInfo(id, updateVoteEntry, i);		
+			}
 		});
 	});
 }) ();
