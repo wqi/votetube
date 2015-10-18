@@ -11,10 +11,11 @@
 
 		thumbsUp.onclick = vote;
 		thumbsDown.onclick = vote;
-
 		function vote() {
 			// TODO: add voting events
 		}
+
+		console.log(sideBar.offsetWidth);
 
 		function pinSidebar() {
 			if (pin.checked) {

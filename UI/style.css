@@ -52,7 +52,7 @@ html, body {
 	z-index: -1;
 }
 
-.side-bar {
+#side-bar {
 	position: absolute;
 	right: -400px;
 	height: 100%;
