@@ -34,8 +34,10 @@
 
 		var thumbsUp = document.getElementsByClassName("fa-thumbs-up")[0];
 		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
-		thumbsUp.onclick = vote;
-		thumbsDown.onclick = vote;
+		if (thumbsUp !== undefined) {
+			thumbsUp.onclick = vote;
+			thumbsDown.onclick = vote;
+		}
 
 		var videoUrlInput = document.querySelector('#video-url')
 		var videoSubmit = document.querySelector('#submit-video');
@@ -142,17 +144,6 @@
 			console.log(toSend);
 			socket.emit('add video', toSend);
 		}
-
-		socket.on('video list', function(data) {
-			var sorted = sortVideos(data);
-			var length = Object.keys(sorted).length;
-			$('.voting').empty();
-			for (var i=0; i++; i<length) {
-				generateVoteEntry();
-				var id = sorted[i].split('?v=')[1].split('&')[0];
-				getVideoInfo(id, updateVoteEntry, i);		
-			}
-		});
 
 		socket.on('video voted', function(data) {
 			var points = data.points;

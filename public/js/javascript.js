@@ -8,7 +8,15 @@
 		var tabs = [document.querySelector(".top-tab img"), document.querySelector(".side-tab img")];
 		pin.onclick = pinSidebar;
 		sideBar.style.right = "-" + sideBar.offsetWidth + "px";
-		
+		if (thumbsUp !== undefined) {
+			thumbsUp.onclick = vote;
+			thumbsDown.onclick = vote;
+		}
+
+		function vote() {
+			// TODO: add voting events
+		}
+
 		function pinSidebar() {
 			if (pin.checked) {
 				topBar.style.width = window.innerWidth - sideBar.offsetWidth + "px";
