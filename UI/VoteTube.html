@@ -6,20 +6,29 @@
 <!-- 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500" /> -->
 <!-- 		<link rel="icon" type="image/png" href="files/favicon.png" /> -->
 		<link rel="stylesheet" href="style.css" />
-<!-- 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" src="javascript.js"></script>
 	</head>
 	<body>
 		<div id="top-bar">
 			<span>Video Title</span>
 		</div>
+		<div id="side-bar">	
+			<input type="checkbox" id="pin" class="triggers" />
+			<label for="pin" class="icon">
+				<i class="fa fa-thumb-tack fa-lg"></i>
+			</label>
+			<div class="voting">
+				<i class="fa fa-thumbs-down"></i>
+				<p id="counter">0</p>
+				<i class="fa fa-thumbs-up"></i>
+
+			</div>
+		</div>
 		<div class="main">
 			<video class="background" loop autoplay>
 				<source src="social.mp4" type="video/mp4" />
 			</video>
-		</div>
-		<div class="side-bar">
-			
 		</div>
 	</body>
 </html>
