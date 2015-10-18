@@ -8,8 +8,6 @@
 		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
 		var voteCounter = document.getElementById("counter");
 		var tabs = [document.querySelector(".top-tab img"), document.querySelector(".side-tab img")];
-
-
 		pin.onclick = pinSidebar;
 		sideBar.style.right = "-" + sideBar.offsetWidth + "px";
 		thumbsUp.onclick = vote;
