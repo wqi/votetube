@@ -66,6 +66,7 @@ function Video(videoURL) {
 	this.uploader;
 	this.length;
 	this.votedUsers = [];
+	this.videoId = url.parse(videoURL, true).query.v;
 }
 
 function Room() {
@@ -139,7 +140,7 @@ io.on('connection', function (socket) {
 		// TODO: check/sanitize user input
 		var video = new Video(data.videoURL);
 
-		yt.getById(url.parse(video.url, true).query.v, function(err, res) {
+		yt.getById(video.videoId, function(err, res) {
 			if (err) {
 				// TODO: handle error
 				console.log('error');
@@ -148,7 +149,7 @@ io.on('connection', function (socket) {
 				video.name = res.items[0].snippet.title;
 				video.length = moment.duration(res.items[0].contentDetails.duration).asSeconds();
 				video.uploader = res.items[0].snippet.channelTitle;
-				room.videos[video.url] = video;
+				room.videos[video.videoId] = video;
 				io.to(room.roomName).emit('video added', video);
 				console.log(room.videos);
 			}
@@ -239,7 +240,7 @@ function updateRoom (room) {
 				room.videos[k].points > max.points ? max = room.videos[k] : max = max;
 			}
 
-			delete room.videos[max.url];
+			delete room.videos[max.videoId];
 
 			room.currentVideo = max;
 			room.currentTime = 0;
