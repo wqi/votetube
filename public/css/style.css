@@ -165,6 +165,7 @@ html, body {
 	height: 50%;
 	overflow: auto;
 	padding-right: 15px;
+    border-bottom: 1px solid #fff;
 }
 
 .voting p {
