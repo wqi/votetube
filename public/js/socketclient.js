@@ -65,7 +65,6 @@ var vote = function() {
 		var connected = false;
 		var usernameSubmit = document.querySelector('.usernameSubmit');
 		var messageSubmit = document.querySelector('.messageSubmit');
-		usernameSubmit.onclick = setUsername;
 		messageSubmit.onclick = messageSend;
 
 		var urlinput = document.querySelector('.form-control');
@@ -103,13 +102,6 @@ var vote = function() {
 			var url = urlinput.value;
 			console.log(url);
 			socket.emit('add video', {videoURL: url});
-		}
-
-		function setUsername() {
-
-			console.log(username);
-			//sessionStorage.setItem('username', username);
-			console.log(document.body.dataset.room);
 		}
 
 		function addMessage(username, message) {
