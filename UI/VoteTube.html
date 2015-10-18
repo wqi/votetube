@@ -6,15 +6,24 @@
 <!-- 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500" /> -->
 <!-- 		<link rel="icon" type="image/png" href="files/favicon.png" /> -->
 		<link rel="stylesheet" href="style.css" />
-<!-- 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" src="javascript.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<div id="top-bar">
 			<span>Video Title</span>
+			<div class="btn-group" role="group" id="top-bar-btns">
+				<button type="button" class="btn btn-default"><i class="fa fa-plus"></i> Create Room</button>
+			</div>
 		</div>
 		<div class="main">
-			<video class="background" loop autoplay>
+			<video class="background" loop>
 				<source src="social.mp4" type="video/mp4" />
 			</video>
 		</div>

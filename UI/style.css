@@ -7,6 +7,9 @@ html, body {
 
 #top-bar {
 	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	top: -70px;
 	width: 100%;
 	height: 70px;
@@ -26,6 +29,10 @@ html, body {
 
 .top-bar-hover {
 	top: 0 !important;
+}
+
+#top-bar-btns {
+	padding: 0 10px 0 10px;
 }
 
 .background {
