@@ -48,4 +48,8 @@
 
 		document.addEventListener('mousemove', getCursorPosition, false);
 	};
+
+	window.addEventListener('resize', function(event) {
+		setPlayerSize(document.documentElement.clientWidth, document.documentElement.clientHeight);
+	});
 }) ();

@@ -35,3 +35,7 @@ var syncVideo = function(id, timestamp) {
   }
 }
 
+var setPlayerSize = function(width, height) {
+  player.setSize(width, height);
+}
+
