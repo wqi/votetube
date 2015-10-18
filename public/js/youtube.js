@@ -21,7 +21,7 @@ var onYouTubeIframeAPIReady = function() {
 
 // 4. The API will call this function when the video player is ready.
 var onPlayerReady = function(event) {
-  // event.target.playVideo();
+  event.target.playVideo();
 }
 
 var syncVideo = function(id, timestamp) {

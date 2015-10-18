@@ -1,7 +1,8 @@
 var socket = io('127.0.0.1:1337');
 
-socket.on('sync video', function() {
+socket.on('sync video', function(data) {
 	console.log('Video synced');
+	syncVideo(data.videoId, data.timestamp);
 });
  
 // socket.on('message',function(data) {
