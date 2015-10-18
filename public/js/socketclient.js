@@ -112,8 +112,19 @@
 				'videoURL': videoUrlInput.value
 			}
 			console.log(toSend);
-			socket.emit('video added', toSend);
+			socket.emit('add video', toSend);
 		}
+
+		socket.on('video list', function(data) {
+			var sorted = sortVideos(data);
+			var length = Object.keys(sorted).length;
+			$('.voting').empty();
+			for (var i=0; i++; i<length) {
+				generateVoteEntry();
+				var id = sorted[i].split('?v=')[1].split('&')[0];
+				getVideoInfo(id, updateVoteEntry, i);		
+			}
+		});
 	});
 }) ();
 

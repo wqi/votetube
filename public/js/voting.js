@@ -45,6 +45,7 @@ var getVideoInfo = function(id, callback, callback_param) {
 
 var parseInfo = function(data) {
 	var res = {
+		'id': data.items[0].id,
 		'title': data.items[0].snippet.title,
 		'uploader': data.items[0].snippet.channelTitle,
 		'thumbURL': data.items[0].snippet.thumbnails.default.url
@@ -54,6 +55,8 @@ var parseInfo = function(data) {
 }
 
 var updateVoteEntry = function(data, n) {
+	$('.video-entry:nth-child(' + n + ')').children('.vote-arrows').children('fa-thumbs-up').attr('id', 'thumbs-up.' + data.id);
+	$('.video-entry:nth-child(' + n + ')').children('.vote-arrows').children('fa-thumbs-down').attr('id', 'thumbs-down.' + data.id);
 	$('.video-entry:nth-child(' + n + ')').children('.video-info-test').children('.video-title').text(data.title);
 	$('.video-entry:nth-child(' + n + ')').children('.video-info-test').children('.video-uploader').text(data.uploader);
 	$('.video-entry:nth-child(' + n + ')').children('.video-thumbnail').empty();

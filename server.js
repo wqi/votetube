@@ -115,13 +115,13 @@ io.on('connection', function (socket) {
 			room = new Room();
 			room.roomName = data.roomName;
 			room.users.push(user);
-
-
+			rooms[roomName] = room;
 			// send sync event
 			room.intervalObject	= setInterval(updateRoom, 10000, room);
 		}
 
 		socket.emit('video list', room.videos);
+		console.log(room.videos);
 	});
 
 	socket.on('add video', function (data) {
@@ -129,7 +129,6 @@ io.on('connection', function (socket) {
 			return;
 		}
 
-		console.log(data);
 
 		if (data.videoURL in room.videos) {
 			socket.emit("error", "Video has already been submitted.");
@@ -142,6 +141,7 @@ io.on('connection', function (socket) {
 		yt.getById(url.parse(video.url, true).query.v, function(err, res) {
 			if (err) {
 				// TODO: handle error
+				console.log('error');
 				return;
 			} else {
 				video.name = res.items[0].snippet.title;
