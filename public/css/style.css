@@ -219,6 +219,15 @@ form {
 	color: white;
 }
 
+.chat {
+    height: 50%;
+    padding-bottom: 110px;
+}
+
+.chatArea {
+    height: 100%;
+}
+
 .chat-form {
 	position: absolute;
 	width: 100%;
@@ -265,6 +274,8 @@ form {
 .messages {
 	color: #fff;
     list-style: none;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .messages .username {

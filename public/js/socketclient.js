@@ -14,7 +14,7 @@ var vote = function(elem) {
 			document.getElementById("thumbs-down." + id[1]).classList.remove('downvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
 			socket.emit('unvote', {voteDir: 'downvote', videoId: id[1]});
-		} 
+		}
 		else {
 			elem.classList.add('upvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
@@ -29,7 +29,7 @@ var vote = function(elem) {
 			document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
 			socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
-		} 
+		}
 		else {
 			elem.classList.add('downvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
@@ -124,6 +124,10 @@ var vote = function(elem) {
 			element.appendChild(msgElement);
 
 			messages.appendChild(element);
+
+			if (messages.scrollHeight > messages.clientHeight) {
+			  	messages.scrollTop = messages.scrollHeight - messages.clientHeight;
+			}
 		}
 
 		socket.on('receive msg', function(data) {
