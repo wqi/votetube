@@ -23,7 +23,7 @@ var moment = require('moment');
 
 yt.setKey(key.youtube);
 
-var syncDuration = 5; // seconds
+var syncDuration = 2; // seconds
 
 app.configure(function(){
 	// I need to access everything in '/public' directly

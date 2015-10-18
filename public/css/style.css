@@ -302,3 +302,7 @@ form {
 .downvotecolor {
 	color: #9494ff !important;
 }
+
+#counter {
+    display: none;
+}

@@ -1,4 +1,4 @@
-var socket = io('127.0.0.1:1337');
+var socket = io('votetube.cloudapp.net:1337');
 
 socket.on('sync video', function(data) {
 	console.log('Video synced');
