@@ -92,7 +92,9 @@ var vote = function(elem) {
 
 		function messageSend() {
 			var message = messageInput.value;
-			socket.emit('send msg', {username: username, msg: message});
+			if (message !== "") {
+				socket.emit('send msg', {username: username, msg: message});
+			}
 			messageInput.value = "";
 			//addMessage(username, message);
 		}
