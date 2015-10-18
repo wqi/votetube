@@ -59,6 +59,11 @@ var updateVoteEntry = function(data, n) {
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-info-text').find('.video-uploader').text(data.uploader);
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').empty();
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
+
+	var thumbsUp = $('#thumbs-up.' + data.id);
+	var thumbsDown = $('#thumbs-down.' + data.id);;
+	thumbsUp.onclick = vote;
+	thumbsDown.onclick = vote;
 }
 
 var sortVideos = function(videoArray) {

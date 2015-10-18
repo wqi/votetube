@@ -1,3 +1,43 @@
+var vote = function() {
+	var vote;
+	console.log(this);
+	var className = this.classList[1];
+	var id = this.id.split(".");
+	if (className.indexOf('up') != -1) {
+		vote = 'upvote';
+		if (document.getElementsByClassName('upvotecolor').length > 0) {
+			this.classList.remove('upvotecolor');
+			socket.emit('unvote', {voteDir: vote, videoId: id[1]});
+
+		} else if (document.getElementsByClassName('downvotecolor').length > 0) {
+			this.classList.add('upvotecolor');
+			document.getElementById("thumbs-down." + id[1]).classList.remove('downvotecolor');
+			socket.emit('vote', {voteDir: vote, videoId: id[1]});
+			socket.emit('unvote', {voteDir: 'downvote', videoId: id[1]});
+		} 
+		else {
+			this.classList.add('upvotecolor');
+			socket.emit('vote', {voteDir: vote, videoId: id[1]});
+		}
+	} else {
+		vote = 'downvote';
+		if (document.getElementsByClassName('downvotecolor').length > 0) {
+			this.classList.remove('downvotecolor');
+			socket.emit('unvote', {voteDir: vote, videoId: id[1]});
+		} else if (document.getElementsByClassName('upvotecolor').length > 0) {
+			this.classList.add('downvotecolor');
+			document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
+			socket.emit('vote', {voteDir: vote, videoId: id[1]});
+			socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
+		} 
+		else {
+			this.classList.add('downvotecolor');
+			socket.emit('vote', {voteDir: vote, videoId: id[1]});
+		}
+	}
+	console.log(vote);
+}
+
 (function() {
 	"use strict";
 
@@ -34,10 +74,8 @@
 
 		var thumbsUp = document.getElementsByClassName("fa-thumbs-up")[0];
 		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
-		if (thumbsUp !== undefined) {
-			thumbsUp.onclick = vote;
-			thumbsDown.onclick = vote;
-		}
+		thumbsUp.onclick = vote;
+		thumbsDown.onclick = vote;
 
 		var videoUrlInput = document.querySelector('#video-url')
 		var videoSubmit = document.querySelector('#submit-video');
@@ -63,46 +101,6 @@
 			if (e.keyCode == 13) {
 				setUsername();
 			}
-		}
-
-		function vote() {
-			var vote;
-			console.log(this);
-			var className = this.classList[1];
-			var id = this.id.split(".");
-			if (className.indexOf('up') != -1) {
-				vote = 'upvote';
-				if (document.getElementsByClassName('upvotecolor').length > 0) {
-					this.classList.remove('upvotecolor');
-					socket.emit('unvote', {voteDir: vote, videoId: id[1]});
-
-				} else if (document.getElementsByClassName('downvotecolor').length > 0) {
-					this.classList.add('upvotecolor');
-					document.getElementById("thumbs-down." + id[1]).classList.remove('downvotecolor');
-					socket.emit('vote', {voteDir: vote, videoId: id[1]});
-					socket.emit('unvote', {voteDir: 'downvote', videoId: id[1]});
-				} 
-				else {
-					this.classList.add('upvotecolor');
-					socket.emit('vote', {voteDir: vote, videoId: id[1]});
-				}
-			} else {
-				vote = 'downvote';
-				if (document.getElementsByClassName('downvotecolor').length > 0) {
-					this.classList.remove('downvotecolor');
-					socket.emit('unvote', {voteDir: vote, videoId: id[1]});
-				} else if (document.getElementsByClassName('upvotecolor').length > 0) {
-					this.classList.add('downvotecolor');
-					document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
-					socket.emit('vote', {voteDir: vote, videoId: id[1]});
-					socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
-				} 
-				else {
-					this.classList.add('downvotecolor');
-					socket.emit('vote', {voteDir: vote, videoId: id[1]});
-				}
-			}
-			console.log(vote);
 		}
 
 
