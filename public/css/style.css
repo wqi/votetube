@@ -106,6 +106,7 @@ html, body {
 	max-width: 400px;
 	min-width: 300px;
 	z-index: 10;
+	overflow: hidden;
 	background-color: rgba(0,0,0,0.5);
 	transition: right 0.3s;
 	-moz-transition: right 0.3s;
@@ -162,7 +163,8 @@ html, body {
 .voting {
 	text-align: center;
 	height: 50%;
-	overflow: scroll;
+	overflow: auto;
+	padding-right: 15px;
 }
 
 .voting p {
@@ -257,6 +259,10 @@ form {
     color: #fff;
     text-transform: uppercase;  
     text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+}
+
+.messages {
+	color: #fff;
 }
 
 .messageSubmit {

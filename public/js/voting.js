@@ -62,11 +62,15 @@ var updateVoteEntry = function(data, n) {
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
 
 	var thumbsUp = $('#thumbs-up.' + data.id);
-	var thumbsDown = $('#thumbs-down.' + data.id);;
-	// thumbsUp.onclick = vote(thumbsUp);
-	// thumbsDown.onclick = vote(thumbsDown);
-
+	var thumbsDown = $('#thumbs-down.' + data.id);
+	thumbsUp.onclick = callVote;
+	thumbsDown.onclick = callVote;
+	
 	videoQueue[n] = data;
+}
+
+function callVote() {
+	vote(this);
 }
 
 var sortVideos = function(videoArray) {

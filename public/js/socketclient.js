@@ -81,13 +81,20 @@ var vote = function(elem) {
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
 			if (event.keyCode == 13) {
+				event.cancelubble = true;
+				event.returnValue = false;
+				event.preventDefault();
+				event.stopPropagation();
+
 				messageSend();
 			}
 		}
 
 		function messageSend() {
 			var message = messageInput.value;
-			socket.emit('send msg', {username: username, msg: message});
+			if (message !== "") {
+				socket.emit('send msg', {username: username, msg: message});
+			}
 			messageInput.value = "";
 			//addMessage(username, message);
 		}
@@ -122,6 +129,7 @@ var vote = function(elem) {
 			}
 			console.log(toSend);
 			socket.emit('add video', toSend);
+			videoUrlInput.value = "";
 		}
 
 		socket.on('video voted', function(data) {
