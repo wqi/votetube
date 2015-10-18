@@ -28,21 +28,11 @@ var vote = function(elemid) {
 			elem.classList.remove('downvotecolor');
 			socket.emit('unvote', {voteDir: vote, videoId: id[1]});
 		} else if (document.getElementsByClassName('upvotecolor').length > 0) {
-<<<<<<< HEAD
-			//document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
-			//vote2("thumbs-up." + id[1]);
-			//vote2("thumbs-down." + id[1]);
-			//elem.classList.add('downvotecolor');
-			//socket.emit('vote', {voteDir: vote, videoId: id[1]});
-			//socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
-		} 
-=======
 			elem.classList.add('downvotecolor');
 			document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
 			socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
 		}
->>>>>>> c0e134113a83901f91d2cf5645aae1f9329997a2
 		else {
 			elem.classList.add('downvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
