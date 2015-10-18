@@ -10,7 +10,6 @@ $(function() {
 		getVideoInfo(id, updateVoteEntry);
 	}
 
-	
 });
 
 var apiKey = 'AIzaSyACwwIf-fpEqbbjWd7Ae09je7ixYyJsqc4';
