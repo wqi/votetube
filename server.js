@@ -68,19 +68,17 @@ function Video(url) {
 	this.votedUsers = [];
 }
 
-
-
 function Room() {
 	this.roomName;
-	this.users = {};
+	this.users = [];
 	this.videos = {};
 	this.currentVideo = null;
-	this.currentTime;
+	this.currentTime = -1;
 	this.intervalObject;
 }
 
 
-
+var rooms = {};
 
 io.on('connection', function (socket) {
 	var user = null;
@@ -109,13 +107,15 @@ io.on('connection', function (socket) {
 		user = new User(socket.id, userName);
 
 		// TODO: not working code
-		if (room[roomName] != null) {
+		if (rooms[roomName] != null) {
 			room = rooms[roomName];
 			socket.join(room.roomName);
 
 		} else {
 			room = new Room();
 			room.roomName = data.roomName;
+			room.users.push(user);
+
 
 			// send sync event
 			room.intervalObject	= setInterval(updateRoom, 10000, room);
