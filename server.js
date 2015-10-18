@@ -133,7 +133,7 @@ io.on('connection', function (socket) {
 			socket.emit("error", "Video has already been submitted.");
 			return;
 		}
-
+		console.log("adding video: " + data.videoURL);
 		// TODO: check/sanitize user input
 		var video = new Video(data.videoURL);
 
@@ -147,6 +147,7 @@ io.on('connection', function (socket) {
 				video.uploader = res.items[0].snippet.channelTitle;
 				room.videos[video.url] = video;
 				io.to(room.roomName).emit('video added', video);
+				console.log(room.videos);
 			}
 		});
 	});
