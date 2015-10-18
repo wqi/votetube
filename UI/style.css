@@ -98,17 +98,23 @@ label[for="pin"] {
 
 .voting {
 	text-align: center;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
 }
 
 .voting p {
-	margin: 0 30px;
+	/*margin: 0 30px;*/
 	color: white;
 	display: inline;
 }
 
 .voting i {
-	font-size: 4em;
+	font-size: 2em;
 	cursor: pointer;
+}
+
+.vote-arrows {
+	width: 10%;
 }
 
 .chat {

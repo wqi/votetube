@@ -13,7 +13,7 @@ function onYouTubeIframeAPIReady() {
     height: window.innerHeight,
 	width: window.innerWidth,
 	videoId: 'Vb5OZKna62Q',
-    playerVars: {'wmode': 'opaque', 'autoplay': 1, 'controls': 0, 'showinfo': 0},
+    playerVars: {'wmode': 'opaque', 'autoplay': 0, 'controls': 0, 'showinfo': 0},
     events: {
       'onReady': onPlayerReady,
     }
@@ -22,5 +22,5 @@ function onYouTubeIframeAPIReady() {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  event.target.playVideo();
+  // event.target.playVideo();
 }
