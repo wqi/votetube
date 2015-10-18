@@ -13,6 +13,15 @@ var device  = require('express-device');
 
 var runningPortNumber = process.env.PORT || 1337;
 var _ = require('lodash');
+var YouTube = require('youtube-node');
+var yt = new YouTube();
+var key = require('./key.js');
+
+var url = require('url');
+
+var moment = require('moment');
+
+yt.setKey(key.youtube);
 
 
 app.configure(function(){
@@ -62,7 +71,6 @@ io.sockets.on('connection', function (socket) {
 
 
 
-
 function User(socketId, name) {
 	this.socketId = socketId;
 	this.name = name;
@@ -87,6 +95,7 @@ function Room() {
 	this.currentTime;
 	this.intervalObject;
 }
+
 
 
 
@@ -137,14 +146,26 @@ io.on('connection', function (socket) {
 			return;
 		}
 
-		// TODO: check/sanitize user input
-		var video = new Video(data.videoURL);
 		if (video.url in room.videos) {
 			socket.emit("error", "Video has already been submitted.");
 			return;
 		}
-		room.videos[video.url] = video;
-		io.to(room.roomName).emit('video added', video);
+
+		// TODO: check/sanitize user input
+		var video = new Video(data.videoURL);
+
+		yt.getById(url.parse(video.url, true).query.v, function(err, res) {
+			if (err) {
+				// TODO: handle error
+				return;
+			} else {
+				video.name = res.items[0].snippet.title;
+				video.length = moment.duration(res.items[0].contentDetails.duration).asSeconds();
+				video.uploader = res.items[0].snippet.channelTitle;
+				room.videos[video.url] = video;
+				io.to(room.roomName).emit('video added', video);
+			}
+		});
 	});
 
 	socket.on('vote', function (data) {
@@ -210,6 +231,8 @@ function updateRoom (room) {
 		timestamp: 0
 	};
 
+
+
 	// get new video if no current video
 	if (room.currentVideo === null) {
 		if (_.size(room.videos) > 0) {
@@ -221,12 +244,16 @@ function updateRoom (room) {
 			}
 
 			room.currentVideo = max;
+			room.currentTime = 0;
 		}
 	} else {
+		if (room.currentTime + 10 > room.currentVideo.length) {
+			// already past end of video, update with next video
+
+		}
 		// currently playing video, update timestamp
 
 		sync.timestamp += 10;
-		// is time past end of video?
 	}
 
 
