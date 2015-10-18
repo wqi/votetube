@@ -61,7 +61,7 @@ html, body {
 	right: -600px;
 	height: 100%;
 	width: 30%;
-	max-width: 500px;
+	max-width: 400px;
 	min-width: 300px;
 	z-index: 10;
 	background-color: rgba(0,0,0,0.5);
@@ -77,6 +77,13 @@ html, body {
 
 .side-bar-hover {
 	right: 0 !important;
+}
+
+#side-bar-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 5px;
 }
 
 label[for="pin"] {
@@ -98,17 +105,27 @@ label[for="pin"] {
 
 .voting {
 	text-align: center;
+	height: 50%;
 }
 
 .voting p {
-	margin: 0 30px;
+	/*margin: 0 30px;*/
 	color: white;
 	display: inline;
 }
 
 .voting i {
-	font-size: 4em;
+	font-size: 2em;
 	cursor: pointer;
+}
+
+.video-entry {
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+}
+
+.vote-arrows {
+	width: 10%;
 }
 
 form {
@@ -116,7 +133,8 @@ form {
 }
 
 #createbutton {
-	background-color: pink;
+	background-color: #3a5ef2;
+	color: white;
 }
 
 .chat {

@@ -19,18 +19,30 @@
 		<div id="top-bar">
 			<span>Video Title</span>
 			<div class="btn-group" role="group" id="top-bar-btns">
-				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Create Room</button>
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Create Room</button>
 			</div>
 		</div>
 		<div id="side-bar">	
-			<input type="checkbox" id="pin" class="triggers" />
-			<label for="pin" class="icon">
-				<i class="fa fa-thumb-tack fa-lg"></i>
-			</label>
+			<div id="side-bar-top">
+				<input type="checkbox" id="pin" class="triggers" />
+				<label for="pin" class="icon">
+					<i class="fa fa-thumb-tack fa-lg"></i>
+				</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Video URL">
+				</div>
+				<div class="btn-group" role="group" id="side-bar-btns">
+					<button type="button" class="btn btn-primary">Submit Video</button>
+				</div>
+			</div>
 			<div class="voting">
-				<i class="fa fa-thumbs-down"></i>
-				<p id="counter">0</p>
-				<i class="fa fa-thumbs-up"></i>
+				<div class="video-entry">
+					<div class="vote-arrows">
+						<i class="fa fa-thumbs-up"></i>
+						<p id="counter">0</p>
+						<i class="fa fa-thumbs-down"></i>
+					</div>
+				</div>
 			</div>
 			<div class="chat">
 			</div>
@@ -42,7 +54,7 @@
 		</div>
 
 		<!-- Create Room Modal  -->
-	    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	        <div class="modal-dialog modal-sm" role="document">
 	            <div class="modal-content">
 	                <div class="modal-header">
