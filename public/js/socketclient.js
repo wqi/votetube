@@ -32,13 +32,6 @@
 		var urlbutton = document.querySelector('.urlbutton');
 		urlbutton.onclick = submitUrl;
 
-		var thumbsUp = document.getElementsByClassName("fa-thumbs-up")[0];
-		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
-		if (thumbsUp !== undefined) {
-			thumbsUp.onclick = vote;
-			thumbsDown.onclick = vote;
-		}
-
 		var videoUrlInput = document.querySelector('#video-url')
 		var videoSubmit = document.querySelector('#submit-video');
 		videoSubmit.onclick = submitVideo;
