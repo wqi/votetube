@@ -81,7 +81,7 @@
 						t.style.opacity = 0;
 					});
 				}
-			}, 4000);
+			}, 2500);
 		}
 
 		document.addEventListener('mousemove', getCursorPosition, false);
