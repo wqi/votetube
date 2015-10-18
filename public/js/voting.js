@@ -63,10 +63,14 @@ var updateVoteEntry = function(data, n) {
 
 	var thumbsUp = $('#thumbs-up.' + data.id);
 	var thumbsDown = $('#thumbs-down.' + data.id);;
-	thumbsUp.onclick = vote;
-	thumbsDown.onclick = vote;
+	thumbsUp.onclick = callVote;
+	thumbsDown.onclick = callVote;
 
 	videoQueue[n] = data;
+}
+
+function callVote() {
+	vote(this);
 }
 
 var sortVideos = function(videoArray) {
