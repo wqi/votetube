@@ -11,7 +11,7 @@ var onYouTubeIframeAPIReady = function() {
   player = new YT.Player('player', {
     height: window.innerHeight,
 	width: window.innerWidth,
-	videoId: 'Vb5OZKna62Q',
+	videoId: 'Fo-gan8U914',
     playerVars: {'wmode': 'opaque', 'autoplay': 0, 'controls': 0, 'showinfo': 0},
     events: {
       'onReady': onPlayerReady,
@@ -25,7 +25,10 @@ var onPlayerReady = function(event) {
 }
 
 var syncVideo = function(id, timestamp) {
-  var currentID = player.getVideoData()['video_id']; 
+  if (id === null) {
+    id = "Fo-gan8U914" // default video, no videos in queue
+  }
+  var currentID = player.getVideoData()['video_id'];
   if (currentID != id) {
     player.loadVideoById(id, timestamp, "default");
     getVideoInfo(id, function(data) {
