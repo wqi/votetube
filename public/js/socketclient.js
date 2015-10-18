@@ -21,7 +21,7 @@
 		var chatArea = document.querySelector('.chatArea')
 		var messages = document.querySelector('.messages');
 
-		var username;
+		var username = random_username();
 		var connected = false;
 		var usernameSubmit = document.querySelector('.usernameSubmit');
 		var messageSubmit = document.querySelector('.messageSubmit');
@@ -39,11 +39,10 @@
 			thumbsDown.onclick = vote;
 		}
 
-		var videoUrlInput = document.querySelector('#video-url')
-		var videoSubmit = document.querySelector('#submit-video');
-		videoSubmit.onclick = submitVideo;
+		var socket = io("127.0.0.1:1337");
 
-		var socket = io('127.0.0.1:1337');
+
+		socket.emit('join room', {roomName: document.body.dataset.room, userName: username});
 
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
@@ -67,7 +66,6 @@
 
 		function vote() {
 			var vote;
-			console.log(this);
 			var className = this.classList[1];
 			var id = this.id.split(".");
 			if (className.indexOf('up') != -1) {
@@ -81,7 +79,7 @@
 					document.getElementById("thumbs-down." + id[1]).classList.remove('downvotecolor');
 					socket.emit('vote', {voteDir: vote, videoId: id[1]});
 					socket.emit('unvote', {voteDir: 'downvote', videoId: id[1]});
-				} 
+				}
 				else {
 					this.classList.add('upvotecolor');
 					socket.emit('vote', {voteDir: vote, videoId: id[1]});
@@ -96,13 +94,14 @@
 					document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
 					socket.emit('vote', {voteDir: vote, videoId: id[1]});
 					socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
-				} 
+				}
 				else {
 					this.classList.add('downvotecolor');
 					socket.emit('vote', {voteDir: vote, videoId: id[1]});
 				}
 			}
 			console.log(vote);
+			socket.emit('vote', {voteDir: vote});
 		}
 
 
@@ -113,16 +112,10 @@
 		}
 
 		function setUsername() {
-			if (usernameInput.value != "") {
-				username = usernameInput.value;
-				usernameInput.style.display = "none";
-				usernameSubmit.style.display = "none";
-				messageInput.style.display = "";
-				messageSubmit.style.display = "";
-			}
+
 			console.log(username);
 			//sessionStorage.setItem('username', username);
-			socket.emit('join room', {roomName: 'default', userName: username});
+			console.log(document.body.dataset.room);
 		}
 
 		function addMessage(username, message) {
@@ -156,3 +149,26 @@
 
 
 
+function random_username(){
+  var adjs = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry",
+  "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring",
+  "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered",
+  "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green",
+  "long", "late", "lingering", "bold", "little", "morning", "muddy", "old",
+  "red", "rough", "still", "small", "sparkling", "throbbing", "shy",
+  "wandering", "withered", "wild", "black", "young", "holy", "solitary",
+  "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine",
+  "polished", "ancient", "purple", "lively", "nameless"]
+
+  , nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea",
+  "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn",
+  "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird",
+  "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower",
+  "firefly", "feather", "grass", "haze", "mountain", "night", "pond",
+  "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf",
+  "thunder", "violet", "water", "wildflower", "wave", "water", "resonance",
+  "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper",
+  "frog", "smoke", "star"];
+
+  return adjs[Math.floor(Math.random()*(adjs.length-1))]+"_"+nouns[Math.floor(Math.random()*(nouns.length-1))];
+}

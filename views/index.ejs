@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>VoteTube</title>
+        <title>VoteTube - <%= roomName %></title>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
-        <link rel="icon" type="image/png" href="img/favicon.png" />
+<!--        <link rel="icon" type="image/png" href="files/favicon.png" /> -->
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- Latest compiled and minified CSS -->
@@ -11,14 +11,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
         <script type="text/javascript" src="js/javascript.js"></script>
         <script type="text/javascript" src="js/youtube.js"></script>
         <script type="text/javascript" src="js/voting.js"></script>
-        <script type="text/javascript" src="js/socket.js"></script>
         <script type="text/javascript" src="js/socketclient.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+        <script type="text/javascript" src="js/socket.js"></script>
     </head>
-    <body>
+    <body data-room="<%= roomName %>">
         <div id="top-bar">
             <div class="top-tab">
                 <img src="img/trapezoid.png">
@@ -63,8 +63,7 @@
                     <ul class="messages"></ul>
                 </div>
                 <form class="chat-form">
-                    <input class="usernameInput" placeholder="Create a username" type="text" />
-                    <input class="messageInput" placeholder="Type a message" style="display:none" type="text" />
+                    <input class="messageInput" placeholder="Type a message" type="text" />
                     <button class="usernameSubmit" type="button">Create</button>
                     <button class="messageSubmit" style="display:none" type="button">Send</button>
                 </form>
