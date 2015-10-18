@@ -28,7 +28,7 @@
 			}
 		}
 
-		function throttle(fn, threshhold, scope) {
+/*		function throttle(fn, threshhold, scope) {
 		  threshhold || (threshhold = 250);
 		  var last,
 		      deferTimer;
@@ -48,11 +48,11 @@
 		      fn.apply(context, args);
 		    }
 		  };
-		}
+		}*/
 
 		function getCursorPosition(e){
 			// Mouse moves. Now show tabs
-			clearTimeout(hideTabs);
+			clearTimeout(mouseTimer);
 			tabs.forEach(function(t) {
 				t.style.opacity = 0.5;
 			});
@@ -74,14 +74,16 @@
 			} else if (e.pageX < window.innerWidth - sideBar.offsetWidth - 30 && !pin.checked) {
 				sideBar.classList.remove("side-bar-hover");
 			}
-			var hideTabs = setTimeout(function() {
-				if (document.getElementsByClassName("side-bar-hover").length == 0 && 
+			var mouseTimer = setTimeout(hideTabs, 4000);
+		}
+
+		function hideTabs() {
+			if (document.getElementsByClassName("side-bar-hover").length == 0 && 
 						document.getElementsByClassName("top-bar-hover").length == 0) {
-					tabs.forEach(function(t) {
-						t.style.opacity = 0;
-					});
-				}
-			}, 4000);
+				tabs.forEach(function(t) {
+					t.style.opacity = 0;
+				});
+			}
 		}
 
 		document.addEventListener('mousemove', getCursorPosition, false);
