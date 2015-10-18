@@ -227,10 +227,14 @@ io.on('connection', function (socket) {
 
 function updateRoom (room) {
 	var sync = {
-		videoId: "",
+		videoUrl: "",
 		timestamp: 0
 	};
 
+	// already past end of video, update with next video
+	if (room.currentTime + 10 > room.currentVideo.length) {
+		room.currentVideo = null;
+	}
 
 
 	// get new video if no current video
@@ -245,17 +249,16 @@ function updateRoom (room) {
 
 			room.currentVideo = max;
 			room.currentTime = 0;
+		} else {
+			sync.videoUrl = null;
+			sync.timestamp = -1;
 		}
 	} else {
-		if (room.currentTime + 10 > room.currentVideo.length) {
-			// already past end of video, update with next video
-
-		}
 		// currently playing video, update timestamp
-
+		room.currentTime += 10;
+		sync.videoUrl = room.currentVideo.url;
 		sync.timestamp += 10;
 	}
-
 
 	io.to(room.roomName).emit('sync video', sync);
 }
