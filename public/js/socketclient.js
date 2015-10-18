@@ -104,19 +104,6 @@ var vote = function(elem) {
 			socket.emit('add video', {videoURL: url});
 		}
 
-		function setUsername() {
-			console.log(username);
-			//sessionStorage.setItem('username', username);
-			console.log(document.body.dataset.room);
-
-		/*	if(usernameInput.value != "") {
-				username = usernameInput.value;
-				usernameInput.style.display = "none";
-				usernameSubmit.style.display = "none";
-				messageInput.style.display = "";
-				messageSubmit.style.display = "";*/
-		}
-
 		function addMessage(username, message) {
 			var element = document.createElement('li');
 			element.innerHTML = username + ": " + message;
