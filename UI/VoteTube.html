@@ -33,21 +33,40 @@
 				<i class="fa fa-thumbs-down"></i>
 				<p id="counter">0</p>
 				<i class="fa fa-thumbs-up"></i>
-
+			</div>
+			<div class="chat">
 			</div>
 		</div>
 		<div class="main">
-			<!-- <video class="background" loop>
-				<source src="social.mp4" type="video/mp4" />
-
-			</video>
-		</div>
-
-			</video> -->
-			
 			<div id="youtube">
 				<div id="player"></div>
 			</div>
 		</div>
+
+		<!-- Create Room Modal  -->
+	    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                    <h4 class="modal-title" id="myModalLabel">Create a new room</h4>
+	                </div>
+	                <div class="modal-body">
+	                	<p class="sign-error" style="display:none">Please make sure all fields are valid</p>
+	                    <form class="form">
+	                        <div>
+	                            <label>Room Name:</label>
+	                            <input id="nameinput" type="text" name="name" placeholder="Room Name" />
+	                        </div>
+	                        <br />
+	                    </form>
+	                </div>
+	                <div class="modal-footer">
+	                    <button id="closebutton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                    <button id="createbutton" type="button" class="btn btn-login">Create</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</body>
 </html>
