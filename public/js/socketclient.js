@@ -111,7 +111,16 @@ var vote = function(elem) {
 
 		function addMessage(username, message) {
 			var element = document.createElement('li');
-			element.innerHTML = username + ": " + message;
+
+			var usernameElement = document.createElement('span');
+			usernameElement.className = 'username';
+			usernameElement.innerHTML = username + ": ";
+			var msgElement = document.createElement('span');
+			msgElement.innerHTML = message;
+
+			element.appendChild(usernameElement);
+			element.appendChild(msgElement);
+
 			messages.appendChild(element);
 		}
 

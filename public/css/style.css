@@ -266,6 +266,10 @@ form {
     list-style: none;
 }
 
+.messages .username {
+    font-weight: bold;
+}
+
 .messageSubmit {
 	margin-left: -50px;
 	width: 50px;
