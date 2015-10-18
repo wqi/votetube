@@ -61,16 +61,13 @@ var updateVoteEntry = function(data, n) {
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').empty();
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
 
-	var thumbsUp = $('#thumbs-up.' + data.id);
-	var thumbsDown = $('#thumbs-down.' + data.id);;
-	thumbsUp.onclick = callVote;
-	thumbsDown.onclick = callVote;
-
+	var thumbsUp = document.getElementById("thumbs-up." + data.id);
+	var thumbsDown = document.getElementById("thumbs-down." + data.id);
+	if (thumbsUp !== undefined && thumbsDown !== undefined) {
+		thumbsUp.setAttribute('onclick','vote(\'' + thumbsUp.id + '\');');
+		thumbsDown.setAttribute('onclick','vote(\'' + thumbsDown.id + '\');');
+	}
 	videoQueue[n] = data;
-}
-
-function callVote() {
-	vote(this);
 }
 
 var sortVideos = function(videoArray) {
