@@ -61,15 +61,40 @@
 
 		function vote() {
 			var vote;
+			console.log(this);
 			var className = this.classList[1];
-			console.log(className);
 			if (className.indexOf('up') != -1) {
 				vote = 'upvote';
+				if (document.getElementsByClassName('upvotecolor').length > 0) {
+					this.classList.remove('upvotecolor');
+					socket.emit('unvote', {voteDir: vote});
+				} else if (document.getElementsByClassName('downvotecolor').length > 0) {
+					this.classList.add('upvotecolor');
+					document.querySelector('.fa-thumbs-down').classList.remove('downvotecolor');
+					socket.emit('vote', {voteDir: vote});
+					socket.emit('unvote', {voteDir: 'downvote'});
+				} 
+				else {
+					this.classList.add('upvotecolor');
+					socket.emit('vote', {voteDir: vote});
+				}
 			} else {
 				vote = 'downvote';
+				if (document.getElementsByClassName('downvotecolor').length > 0) {
+					this.classList.remove('downvotecolor');
+					socket.emit('unvote', {voteDir: vote});
+				} else if (document.getElementsByClassName('upvotecolor').length > 0) {
+					this.classList.add('downvotecolor');
+					document.querySelector('.fa-thumbs-up').classList.remove('upvotecolor');
+					socket.emit('vote', {voteDir: vote});
+					socket.emit('unvote', {voteDir: 'upvote'});
+				} 
+				else {
+					this.classList.add('downvotecolor');
+					socket.emit('vote', {voteDir: vote});
+				}
 			}
 			console.log(vote);
-			socket.emit('vote', {voteDir: vote});
 		}
 
 		function submitUrl() {
