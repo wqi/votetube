@@ -28,28 +28,6 @@
 			}
 		}
 
-/*		function throttle(fn, threshhold, scope) {
-		  threshhold || (threshhold = 250);
-		  var last,
-		      deferTimer;
-		  return function () {
-		    var context = scope || this;
-
-		    var now = +new Date,
-		        args = arguments;
-		    if (last && now < last + threshhold) {
-		      clearTimeout(deferTimer);
-		      deferTimer = setTimeout(function () {
-		        last = now;
-		        fn.apply(context, args);
-		      }, threshhold);
-		    } else {
-		      last = now;
-		      fn.apply(context, args);
-		    }
-		  };
-		}*/
-
 		function getCursorPosition(e){
 			// Mouse moves. Now show tabs
 			clearTimeout(mouseTimer);
@@ -74,7 +52,7 @@
 			} else if (e.pageX < window.innerWidth - sideBar.offsetWidth - 30 && !pin.checked) {
 				sideBar.classList.remove("side-bar-hover");
 			}
-			var mouseTimer = setTimeout(hideTabs, 4000);
+			var mouseTimer = setTimeout(hideTabs, 2500);
 		}
 
 		function hideTabs() {
