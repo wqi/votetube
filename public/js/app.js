@@ -5,7 +5,7 @@
 **************************************/
 
 // connect to our socket server
-var socket = io.connect('http://127.0.0.1:1337/');
+var socket = io.connect('http://votetube.cloudapp.net:1337/');
 
 var app = app || {};
 
@@ -27,7 +27,7 @@ $(function(){
 		//.css('scrollTop', $allPostsTextArea.css('scrollHeight'));
 
 	});
-	
+
 	$clearAllPosts.click(function(e){
 		$allPostsTextArea.text('');
 	});
@@ -36,7 +36,7 @@ $(function(){
 
 		var blast = $blastField.val();
 		if(blast.length){
-			socket.emit("blast", {msg:blast}, 
+			socket.emit("blast", {msg:blast},
 				function(data){
 					$blastField.val('');
 				});
@@ -50,5 +50,8 @@ $(function(){
 	        $sendBlastButton.trigger('click');//lazy, but works
 	    }
 	})
-	
+
 });
+
+
+
