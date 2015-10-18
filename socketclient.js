@@ -26,16 +26,27 @@
 		var usernameSubmit = document.querySelector('.usernameSubmit');
 		var messageSubmit = document.querySelector('.messageSubmit');
 		usernameSubmit.onclick = setUsername;
+		messageSubmit.onclick = messageSend;
 
 		var socket = io();
 
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
 			if (event.keyCode == 13) {
-				var message = messageInput.value;
-				socket.emit('send msg', {username: username, msg: message});
-				messageInput.value = "";
-				//addMessage(username, message);
+				messageSend();
+			}
+		}
+
+		function messageSend() {
+			var message = messageInput.value;
+			socket.emit('send msg', {username: username, msg: message});
+			messageInput.value = "";
+			//addMessage(username, message);
+		}
+
+		usernameInput.onkeypress = function(e) {
+			if (e.keyCode == 13) {
+				setUsername();
 			}
 		}
 
