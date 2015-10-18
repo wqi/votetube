@@ -37,8 +37,12 @@ app.use(function(req, res, next){
 });
 
 app.get("/", function(req, res){
-	res.render('index', {});
+	res.render('index', {roomName: 'root'});
 });
+
+app.get("/:roomName", function(req, res) {
+	res.render('index', {roomName: req.params.roomName});
+})
 
 
 io.sockets.on('connection', function (socket) {
@@ -55,7 +59,6 @@ io.sockets.on('connection', function (socket) {
 });
 
 
-server.listen(runningPortNumber);
 
 
 
@@ -69,7 +72,8 @@ function Video(url) {
 	this.points = 0;
 	this.url = url;
 	this.name; // TODO: fetch video name somehow
-	this.id = guid();
+	this.uploader;
+	this.length;
 	this.votedUsers = [];
 }
 
@@ -79,8 +83,9 @@ function Room() {
 	this.roomName;
 	this.users = {};
 	this.videos = {};
-	this.currentVideo;
+	this.currentVideo = null;
 	this.currentTime;
+	this.intervalObject;
 }
 
 
@@ -99,7 +104,7 @@ io.on('connection', function (socket) {
   function callback(roomExists: boolean) { ... }
   */
 
-	socket.on('join room', function (data) {
+  socket.on('join room', function (data) {
 		var roomName = data.roomName;
 		var userName = data.userName;
 
@@ -120,6 +125,8 @@ io.on('connection', function (socket) {
 			room = new Room();
 			room.roomName = data.roomName;
 
+			// send sync event
+			room.intervalObject	= setInterval(updateRoom, 10000, room);
 		}
 
 		socket.emit('video list', room.videos);
@@ -132,7 +139,11 @@ io.on('connection', function (socket) {
 
 		// TODO: check/sanitize user input
 		var video = new Video(data.videoURL);
-		room.videos[video.id] = video;
+		if (video.url in room.videos) {
+			socket.emit("error", "Video has already been submitted.");
+			return;
+		}
+		room.videos[video.url] = video;
 		io.to(room.roomName).emit('video added', video);
 	});
 
@@ -189,9 +200,38 @@ io.on('connection', function (socket) {
 			msg: data.msg
 		}
 		io.to(room.roomName).emit('msg', chatMessage);
-	})
+	});
 
 });
+
+function updateRoom (room) {
+	var sync = {
+		videoId: "",
+		timestamp: 0
+	};
+
+	// get new video if no current video
+	if (room.currentVideo === null) {
+		if (_.size(room.videos) > 0) {
+			// Number.MIN_SAFE_INTEGER = most negative number
+			// need to account for negative voted videos too
+			var max = {points: Number.MIN_SAFE_INTEGER};
+			for (var k in room.videos) {
+				room.videos[k].points > max.points ? max = room.videos[k] : max = max;
+			}
+
+			room.currentVideo = max;
+		}
+	} else {
+		// currently playing video, update timestamp
+
+		sync.timestamp += 10;
+		// is time past end of video?
+	}
+
+
+	io.to(room.roomName).emit('sync video', sync);
+}
 
 
 
@@ -208,3 +248,6 @@ function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
 }
+
+
+server.listen(runningPortNumber);
