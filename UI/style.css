@@ -58,7 +58,7 @@ html, body {
 
 #side-bar {
 	position: absolute;
-	right: -400px;
+	right: -600px;
 	height: 100%;
 	width: 30%;
 	max-width: 500px;
@@ -113,8 +113,18 @@ label[for="pin"] {
 	cursor: pointer;
 }
 
+
 .vote-arrows {
 	width: 10%;
+}
+
+form {
+	text-align: center;
+}
+
+#createbutton {
+	background-color: #3a5ef2;
+	color: white;
 }
 
 .chat {

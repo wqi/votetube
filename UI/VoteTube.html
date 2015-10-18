@@ -8,9 +8,7 @@
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -21,7 +19,7 @@
 		<div id="top-bar">
 			<span>Video Title</span>
 			<div class="btn-group" role="group" id="top-bar-btns">
-				<button type="button" class="btn btn-default"><i class="fa fa-plus"></i> Create Room</button>
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Create Room</button>
 			</div>
 		</div>
 		<div id="side-bar">	
@@ -49,7 +47,7 @@
 
 		<!-- Create Room Modal  -->
 	    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	        <div class="modal-dialog" role="document">
+	        <div class="modal-dialog modal-sm" role="document">
 	            <div class="modal-content">
 	                <div class="modal-header">
 	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -57,12 +55,11 @@
 	                </div>
 	                <div class="modal-body">
 	                	<p class="sign-error" style="display:none">Please make sure all fields are valid</p>
-	                    <form class="form">
+	                    <form>
 	                        <div>
 	                            <label>Room Name:</label>
 	                            <input id="nameinput" type="text" name="name" placeholder="Room Name" />
 	                        </div>
-	                        <br />
 	                    </form>
 	                </div>
 	                <div class="modal-footer">
