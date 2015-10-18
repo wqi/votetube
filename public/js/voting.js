@@ -14,6 +14,7 @@ $(function() {
 });
 
 var apiKey = 'AIzaSyACwwIf-fpEqbbjWd7Ae09je7ixYyJsqc4';
+var videoQueue = [];
 
 var generateVoteEntry = function() {
 	var domBlock =
@@ -61,6 +62,8 @@ var updateVoteEntry = function(data, n) {
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-info-text').find('.video-uploader').text(data.uploader);
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').empty();
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
+
+	videoQueue[n] = data;
 }
 
 var sortVideos = function(videoArray) {
