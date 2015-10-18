@@ -33,3 +33,14 @@ socket.emit('join room', {roomName: 'main', userName: 'asdf'});
 // 		getVideoInfo(id, updateVoteEntry, i);		
 // 	}
 // });
+
+socket.on('video list', function(data) {
+	var sorted = sortVideos(data);
+	console.log(sorted);
+	$('.voting').empty();
+	for (var i=0; i<sorted.length; i++) {
+		generateVoteEntry();
+		var id = sorted[i].split('?v=')[1].split('&')[0];
+		getVideoInfo(id, updateVoteEntry, i);		
+	}
+});

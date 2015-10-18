@@ -55,19 +55,20 @@ var parseInfo = function(data) {
 }
 
 var updateVoteEntry = function(data, n) {
-	$('.video-entry:nth-child(' + n + ')').children('.vote-arrows').children('fa-thumbs-up').attr('id', 'thumbs-up.' + data.id);
-	$('.video-entry:nth-child(' + n + ')').children('.vote-arrows').children('fa-thumbs-down').attr('id', 'thumbs-down.' + data.id);
-	$('.video-entry:nth-child(' + n + ')').children('.video-info-test').children('.video-title').text(data.title);
-	$('.video-entry:nth-child(' + n + ')').children('.video-info-test').children('.video-uploader').text(data.uploader);
-	$('.video-entry:nth-child(' + n + ')').children('.video-thumbnail').empty();
-	$('.video-entry:nth-child(' + n + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
+	$('.video-entry:nth-child(' + (n+1) + ')').children('.vote-arrows').find('.fa-thumbs-up').attr('id', 'thumbs-up.' + data.id);
+	$('.video-entry:nth-child(' + (n+1) + ')').children('.vote-arrows').find('.fa-thumbs-down').attr('id', 'thumbs-down.' + data.id);
+	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-info-text').find('.video-title').text(data.title);
+	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-info-text').find('.video-uploader').text(data.uploader);
+	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').empty();
+	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
 }
 
 var sortVideos = function(videoArray) {
 	var tuples = [];
 	var sortedVideos = [];
+
 	for (var video in videoArray) {
-		tuples.push([video["id"], video["points"]]);
+		tuples.push([videoArray[video].url, videoArray[video].points]);
 	}
 	tuples.sort(function(a, b) {
 		a = a[1];
