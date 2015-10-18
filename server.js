@@ -59,9 +59,9 @@ function User(socketId, name) {
 	this.name = name;
 }
 
-function Video(url) {
+function Video(videoURL) {
 	this.points = 0;
-	this.url = url;
+	this.url = videoURL;
 	this.name; // TODO: fetch video name somehow
 	this.uploader;
 	this.length;
@@ -73,7 +73,7 @@ function Room() {
 	this.users = [];
 	this.videos = {};
 	this.currentVideo = null;
-	this.currentTime = -1;
+	this.currentTime = 0;
 	this.intervalObject;
 }
 
@@ -129,7 +129,7 @@ io.on('connection', function (socket) {
 			return;
 		}
 
-		if (video.url in room.videos) {
+		if (data.videoURL in room.videos) {
 			socket.emit("error", "Video has already been submitted.");
 			return;
 		}
@@ -166,6 +166,7 @@ io.on('connection', function (socket) {
 			}
 			video.votedUsers.push(user);
 			io.to(room.roomName).emit("video voted", video);
+			console.log(room.videos);
 		} else {
 			var msg = "You have already voted, you cannot vote again!";
 			socket.emit("error", msg);
@@ -189,7 +190,7 @@ io.on('connection', function (socket) {
 			// remove user from voted user list
 			var userIndex = video.votedUsers.indexOf(user);
 			if (userIndex > -1) {
-				video.votedUsers.splice(index, 1);
+				video.votedUsers.splice(userIndex, 1);
 			}
 
 			io.to(room.roomName).emit("video voted", video);
@@ -215,19 +216,18 @@ function updateRoom (room) {
 		timestamp: 0
 	};
 
+	console.log('sending sync');
 
 	if (room.currentVideo !== null) {
 		// already past end of video, update with next video
 		if (room.currentTime + 10 > room.currentVideo.length) {
 			room.currentVideo = null;
 		}
-	} else {
-		sync.videoUrl = null;
-		sync.timestamp = -1;
 	}
 
 	// get new video if no current video
 	if (room.currentVideo === null) {
+		console.log(_.size(room.videos));
 		if (_.size(room.videos) > 0) {
 			// Number.MIN_SAFE_INTEGER = most negative number
 			// need to account for negative voted videos too
@@ -236,8 +236,12 @@ function updateRoom (room) {
 				room.videos[k].points > max.points ? max = room.videos[k] : max = max;
 			}
 
+			delete room.videos[max.url];
+
 			room.currentVideo = max;
 			room.currentTime = 0;
+			sync.videoUrl = room.currentVideo.url;
+			sync.timestamp = 0;
 		} else {
 			sync.videoUrl = null;
 			sync.timestamp = -1;
@@ -246,8 +250,10 @@ function updateRoom (room) {
 		// currently playing video, update timestamp
 		room.currentTime += 10;
 		sync.videoUrl = room.currentVideo.url;
-		sync.timestamp += 10;
+		sync.timestamp = room.currentTime;
 	}
+
+	console.log(sync);
 
 	io.to(room.roomName).emit('sync video', sync);
 }
