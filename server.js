@@ -54,23 +54,6 @@ app.get("/:roomName", function(req, res) {
 })
 
 
-io.sockets.on('connection', function (socket) {
-
-	io.sockets.emit('blast', {msg:"<span style=\"color:red !important\">someone connected</span>"});
-
-	socket.on('blast', function(data, fn){
-		console.log(data);
-		io.sockets.emit('blast', {msg:data.msg});
-
-		fn();//call the client back to clear out the field
-	});
-
-});
-
-
-
-
-
 function User(socketId, name) {
 	this.socketId = socketId;
 	this.name = name;
