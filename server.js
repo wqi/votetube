@@ -67,6 +67,7 @@ function Video(url) {
 	this.url = url;
 	this.name; // TODO: fetch video name somehow
 	this.id = guid();
+	this.votedUsers = [];
 }
 
 
@@ -126,7 +127,6 @@ io.on('connection', function (socket) {
 		// TODO: check/sanitize user input
 		var video = new Video(data.videoURL);
 		room.videos[video.id] = video;
-
 		io.to(room.roomName).emit('video added', video);
 	});
 
@@ -136,12 +136,45 @@ io.on('connection', function (socket) {
 		}
 
 		var video = room.videos[data.videoId];
-		if (data.voteDir === "upvote") {
-			video.points++;
-		} else if (data.voteDir === "downvote") {
-			video.points--;
+		if (!_.contains(video.votedUsers, user)) {
+			if (data.voteDir === "upvote") {
+				video.points++;
+			} else if (data.voteDir === "downvote") {
+				video.points--;
+			}
+			video.votedUsers.push(user);
+			io.to(room.roomName).emit("video voted", video);
+		} else {
+			var msg = "You have already voted, you cannot vote again!";
+			socket.emit("error", msg);
 		}
-		io.to(room.roomName).emit("video voted", video);
+	});
+
+	socket.on('unvote', function (data) {
+		if (!room || !user) {
+			return;
+		}
+
+		var video = room.videos[data.videoId];
+		if (_.contains(video.votedUsers, user)) {
+			if (data.voteDir === "upvote") {
+				video.points--;
+			} else if (data.voteDir === "downvote") {
+				video.points++;
+			}
+
+			// remove user from voted user list
+			var userIndex = video.votedUsers.indexOf(user);
+			if (userIndex > -1) {
+				video.votedUsers.splice(index, 1);
+			}
+
+			io.to(room.roomName).emit("video voted", video);
+		} else {
+			var msg = "You have not voted yet, you cannot unvote!";
+			socket.emit("error", msg);
+		}
+
 	});
 });
 
