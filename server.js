@@ -214,11 +214,16 @@ function updateRoom (room) {
 		timestamp: 0
 	};
 
-	// already past end of video, update with next video
-	if (room.currentTime + 10 > room.currentVideo.length) {
-		room.currentVideo = null;
-	}
 
+	if (room.currentVideo !== null) {
+		// already past end of video, update with next video
+		if (room.currentTime + 10 > room.currentVideo.length) {
+			room.currentVideo = null;
+		}
+	} else {
+		sync.videoUrl = null;
+		sync.timestamp = -1;
+	}
 
 	// get new video if no current video
 	if (room.currentVideo === null) {
