@@ -21,6 +21,7 @@ $(function() {
 		
 		$('.video-title').text(title);
 		$('.video-uploader').text(uploader);
+		$('.video-thumbnail').empty();
 		$('.video-thumbnail').append('<img src="' + thumbURL + '" width="90px">');
 	}
 });

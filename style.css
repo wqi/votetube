@@ -129,6 +129,8 @@ label[for="pin"] {
 .video-info-text {
 	color: white;
 	text-align: left;
+	width: 250px;
+	overflow: hidden;
 }
 
 .video-title {
@@ -136,7 +138,7 @@ label[for="pin"] {
 }
 
 .vote-arrows {
-	width: 10%;
+	width: 48px;
 }
 
 .video-thumbnail {
