@@ -122,6 +122,7 @@ var vote = function(elem) {
 			}
 			console.log(toSend);
 			socket.emit('add video', toSend);
+			videoUrlInput.value = "";
 		}
 
 		socket.on('video voted', function(data) {
