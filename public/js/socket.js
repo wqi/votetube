@@ -1,7 +1,8 @@
 var socket = io('127.0.0.1:1337');
 
-socket.on('sync video', function() {
+socket.on('sync video', function(data) {
 	console.log('Video synced');
+	syncVideo(data.videoId, data.timestamp);
 });
  
 // socket.on('message',function(data) {
@@ -14,26 +15,6 @@ socket.on('connect',function() {
 
 socket.emit('join room', {roomName: 'main', userName: 'asdf'});
 
-// $(function() {
-// 	$('#submit-video').click(function() {
-// 		var toSend = {
-// 			'videoURL': $('#video-url').val()
-// 		}
-// 		socket.emit('video added', toSend);
-// 	});
-// });
-
-// socket.on('video list', function(data) {
-// 	var sorted = sortVideos(data);
-// 	var length = Object.keys(sorted).length;
-// 	$('.voting').empty();
-// 	for (var i=0; i++; i<length) {
-// 		generateVoteEntry();
-// 		var id = sorted[i].split('?v=')[1].split('&')[0];
-// 		getVideoInfo(id, updateVoteEntry, i);		
-// 	}
-// });
-
 socket.on('video list', function(data) {
 	var sorted = sortVideos(data);
 	console.log(sorted);
@@ -44,3 +25,9 @@ socket.on('video list', function(data) {
 		getVideoInfo(id, updateVoteEntry, i);		
 	}
 });
+
+socket.on('video added', function(data) {
+	generateVoteEntry();
+	var id = data.url.split('?v=')[1].split('&')[0];
+	getVideoInfo(id, updateVoteEntry, videoQueue.length);	
+})

@@ -13,6 +13,7 @@ $(function() {
 });
 
 var apiKey = 'AIzaSyACwwIf-fpEqbbjWd7Ae09je7ixYyJsqc4';
+var videoQueue = [];
 
 var generateVoteEntry = function() {
 	var domBlock =
@@ -64,6 +65,8 @@ var updateVoteEntry = function(data, n) {
 	var thumbsDown = $('#thumbs-down.' + data.id);;
 	thumbsUp.onclick = vote;
 	thumbsDown.onclick = vote;
+
+	videoQueue[n] = data;
 }
 
 var sortVideos = function(videoArray) {
