@@ -36,7 +36,7 @@ var vote = function(elem) {
 		}
 	}
 	console.log(vote);
-}
+};
 
 (function() {
 	"use strict";
