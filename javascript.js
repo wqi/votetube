@@ -15,14 +15,6 @@
 		thumbsUp.onclick = vote;
 		thumbsDown.onclick = vote;
 
-/*		var hideTabs = setTimeout(function() {
-			if (sideBarHover == 0 || topBarHover == 0) {
-				tabs.forEach(function(t) {
-					t.style.display = "none";
-				});
-			}
-		}, 4000);*/
-
 		function vote() {
 			// TODO: add voting events
 		}
