@@ -4,6 +4,7 @@
 		var topBar = document.getElementById("top-bar");
 		var sideBar = document.getElementById("side-bar");
 		var pin = document.getElementById("pin");
+		var pinIcon = document.getElementsByClassName("fa-thumb-tack")[0];
 		var thumbsUp = document.getElementsByClassName("fa-thumbs-up")[0];
 		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
 		var voteCounter = document.getElementById("counter");
@@ -19,9 +20,11 @@
 
 		function pinSidebar() {
 			if (pin.checked) {
+				pinIcon.style.color = "#ffc535";
 				topBar.style.width = window.innerWidth - sideBar.offsetWidth + "px";
 				console.log(sideBar.offsetWidth);
 			} else {
+				pinIcon.style.color = "white";
 				topBar.style.width = "";
 			}
 		}
@@ -36,7 +39,7 @@
 			} else {
 				topBar.classList.remove("top-bar-hover");
 			}
-			if (e.pageX > window.innerWidth - 200) {
+			if (e.pageX > window.innerWidth - 200 && document.getElementsByClassName("top-bar-hover").length == 0) {
 				sideBar.classList.add("side-bar-hover");
 			} else if (e.pageX < window.innerWidth - sideBar.offsetWidth && !pin.checked) {
 				sideBar.classList.remove("side-bar-hover");

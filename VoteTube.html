@@ -8,19 +8,18 @@
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="javascript.js"></script>
+		<script type="text/javascript" src="youtube.js"></script>
 	</head>
 	<body>
 		<div id="top-bar">
 			<span>Video Title</span>
 			<div class="btn-group" role="group" id="top-bar-btns">
-				<button type="button" class="btn btn-default"><i class="fa fa-plus"></i> Create Room</button>
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Create Room</button>
 			</div>
 		</div>
 		<div id="side-bar">	
@@ -32,20 +31,14 @@
 				<i class="fa fa-thumbs-down"></i>
 				<p id="counter">0</p>
 				<i class="fa fa-thumbs-up"></i>
-
+			</div>
+			<div class="chat">
 			</div>
 		</div>
 		<div class="main">
-			<!-- <video class="background" loop>
-				<source src="social.mp4" type="video/mp4" />
-
-			</video>
-		</div>
-
-			</video> -->
-			
 			<div id="youtube">
 				<div id="player"></div>
+<<<<<<< HEAD:VoteTube.html
 				<script>
 					var tag = document.createElement('script');
 
@@ -73,7 +66,34 @@
 				      event.target.playVideo();
 				    }
 				</script>
+=======
+>>>>>>> origin/UI:UI/VoteTube.html
 			</div>
 		</div>
+
+		<!-- Create Room Modal  -->
+	    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	        <div class="modal-dialog modal-sm" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                    <h4 class="modal-title" id="myModalLabel">Create a new room</h4>
+	                </div>
+	                <div class="modal-body">
+	                	<p class="sign-error" style="display:none">Please make sure all fields are valid</p>
+	                    <form>
+	                        <div>
+	                            <label>Room Name:</label>
+	                            <input id="nameinput" type="text" name="name" placeholder="Room Name" />
+	                        </div>
+	                    </form>
+	                </div>
+	                <div class="modal-footer">
+	                    <button id="closebutton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                    <button id="createbutton" type="button" class="btn btn-login">Create</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</body>
 </html>
