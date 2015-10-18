@@ -26,17 +26,56 @@
 		var usernameSubmit = document.querySelector('.usernameSubmit');
 		var messageSubmit = document.querySelector('.messageSubmit');
 		usernameSubmit.onclick = setUsername;
+		messageSubmit.onclick = messageSend;
+
+		var urlinput = document.querySelector('.form-control');
+		var urlbutton = document.querySelector('.urlbutton');
+		urlbutton.onclick = submitUrl;
+
+		var thumbsUp = document.getElementsByClassName("fa-thumbs-up")[0];
+		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
+		thumbsUp.onclick = vote;
+		thumbsDown.onclick = vote;
 
 		var socket = io();
 
 		messageInput.onkeypress = function(event) {
 			//enter key is 13
 			if (event.keyCode == 13) {
-				var message = messageInput.value;
-				socket.emit('send msg', {username: username, msg: message});
-				messageInput.value = "";
-				//addMessage(username, message);
+				messageSend();
 			}
+		}
+
+		function messageSend() {
+			var message = messageInput.value;
+			socket.emit('send msg', {username: username, msg: message});
+			messageInput.value = "";
+			//addMessage(username, message);
+		}
+
+		usernameInput.onkeypress = function(e) {
+			if (e.keyCode == 13) {
+				setUsername();
+			}
+		}
+
+		function vote() {
+			var vote;
+			var className = this.classList[1];
+			console.log(className);
+			if (className.indexOf('up') != -1) {
+				vote = 'upvote';
+			} else {
+				vote = 'downvote';
+			}
+			console.log(vote);
+			socket.emit('vote', {voteDir: vote});
+		}
+
+		function submitUrl() {
+			var url = urlinput.value;
+			console.log(url);
+			socket.emit('add video', {videoURL: url});
 		}
 
 		function setUsername() {
