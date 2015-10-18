@@ -122,10 +122,26 @@ label[for="pin"] {
 .video-entry {
 	border-top: 1px solid white;
 	border-bottom: 1px solid white;
+	display: flex;
+	align-items: center;
+}
+
+.video-info-text {
+	color: white;
+	text-align: left;
+}
+
+.video-title {
+	font-size: 2em;
 }
 
 .vote-arrows {
 	width: 10%;
+}
+
+.video-thumbnail {
+	width: 90px;
+	margin: 0 5px 0 5px;
 }
 
 form {
