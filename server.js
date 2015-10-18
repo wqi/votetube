@@ -194,12 +194,12 @@ io.on('connection', function (socket) {
 		}
 	});
 
-	socket.on('msg', function (data) {
+	socket.on('send msg', function (data) {
 		var chatMessage = {
 			username: user.name,
 			msg: data.msg
 		}
-		io.to(room.roomName).emit('msg', chatMessage);
+		io.to(room.roomName).emit('receive msg', chatMessage);
 	});
 
 });
