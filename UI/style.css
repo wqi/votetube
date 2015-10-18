@@ -7,6 +7,9 @@ html, body {
 
 #top-bar {
 	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	top: -70px;
 	width: 100%;
 	height: 70px;
@@ -27,6 +30,11 @@ html, body {
 
 .top-bar-hover {
 	top: 0 !important;
+	z-index: 10;
+}
+
+#top-bar-btns {
+	padding: 0 10px 0 10px;
 }
 
 .top-bar-thin {
@@ -38,7 +46,13 @@ html, body {
 	display: block;
 }
 
-#side-bar {
+#youtube {
+	width: 100%;
+	display: block;
+	z-index: -1;
+}
+
+.side-bar {
 	position: absolute;
 	right: -400px;
 	height: 100%;
