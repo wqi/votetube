@@ -109,6 +109,7 @@ io.on('connection', function (socket) {
 		// TODO: not working code
 		if (rooms[roomName] != null) {
 			room = rooms[roomName];
+			room.users.push(user);
 			socket.join(room.roomName);
 
 		} else {
