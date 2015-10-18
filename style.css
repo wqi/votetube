@@ -16,9 +16,9 @@ html, body {
 	height: 70px;
 	z-index: 10;
 	background-color: rgba(0,0,0,0.5);
-	transition: top 0.3s;
-	-moz-transition: top 0.3s;
-	-webkit-transition: top 0.3s;
+	transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-webkit-transition: all 0.3s;
 }
 
 #top-bar span {
@@ -56,11 +56,50 @@ html, body {
 	display: block;
 }
 
+.side-tab {
+	position: absolute;
+	height: 100%;
+}
+
+.side-tab img {
+	width: 15px;
+	height: 154px;
+	position: absolute;
+	left: -15px;
+	opacity: 0.5;
+	top: 50%;
+	margin-top: -77px;
+	transition: opacity .35s linear;
+   	-moz-transition: opacity .35s linear;
+   	-webkit-transition: opacity .35s linear;
+}
+
+.top-tab {
+	position: absolute;
+	width: 100%;
+}
+
+.top-tab img {
+	-webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+    transition: opacity .35s linear;
+   	-moz-transition: opacity .35s linear;
+   	-webkit-transition: opacity .35s linear;
+    position: absolute;
+    width: 15px;
+	height: 154px;
+	opacity: 0.5;
+	left: 50%;
+}
+
 #side-bar {
 	position: absolute;
-	right: -600px;
 	height: 100%;
 	width: 30%;
+	right: -700px;
 	max-width: 400px;
 	min-width: 300px;
 	z-index: 10;
@@ -73,6 +112,11 @@ html, body {
 #side-bar i {
 	color: white;
 	padding: 10px;
+	-moz-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+
 }
 
 .side-bar-hover {
@@ -83,19 +127,28 @@ html, body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 5px;
+	padding: 18px 5px;
 }
-
-label[for="pin"] {
+.icon {
 	color: white;
 	z-index: 2;
-}
-
-.icon {
 	cursor: pointer;
 	margin-left: 1px;
 	margin-right: 1px;
 	display: inline;
+	margin-bottom: 0;
+}
+
+.triggers:checked + label i {
+	color: #ffc535 !important;
+	-moz-transform:rotate(90deg); 
+	-webkit-transform:rotate(90deg); 
+	-ms-transform:rotate(90deg);
+	transform:rotate(90deg);
+	-moz-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 
 .triggers {

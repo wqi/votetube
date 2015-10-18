@@ -16,17 +16,22 @@
 		<script type="text/javascript" src="youtube.js"></script>
 		<script type="text/javascript" src="voting.js"></script>
 		<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js"></script>
 		<script type="text/javascript" src="socket.js"></script>
 	</head>
 	<body>
 		<div id="top-bar">
+			<div class="top-tab">
+				<img src="trapezoid.png">
+			</div>
 			<span>Video Title</span>
 			<div class="btn-group" role="group" id="top-bar-btns">
 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Create Room</button>
 			</div>
 		</div>
 		<div id="side-bar">	
+			<div class="side-tab">
+				<img src="trapezoid.png">
+			</div>
 			<div id="side-bar-top">
 				<input type="checkbox" id="pin" class="triggers" />
 				<label for="pin" class="icon">
@@ -54,6 +59,13 @@
 				</div>
 			</div>
 			<div class="chat">
+				<div class="chatArea">
+					<ul class="messages"></ul>
+				</div>
+				<input class="inputMessage" placeholder="Type your Message here..."./>
+				<div class="form">
+					<input class="usernameInput" type="text" maxlength="20" /><button class="usernameSubmit">Submit</button>
+				</div>
 			</div>
 		</div>
 		<div class="main">
@@ -86,5 +98,6 @@
 	            </div>
 	        </div>
 	    </div>
+	    <script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
