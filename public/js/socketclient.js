@@ -1,37 +1,37 @@
-var vote = function() {
+var vote = function(elem) {
 	var vote;
-	console.log(this);
-	var className = this.classList[1];
-	var id = this.id.split(".");
+	console.log(elem);
+	var className = elem.classList[1];
+	var id = elem.id.split(".");
 	if (className.indexOf('up') != -1) {
 		vote = 'upvote';
 		if (document.getElementsByClassName('upvotecolor').length > 0) {
-			this.classList.remove('upvotecolor');
+			elem.classList.remove('upvotecolor');
 			socket.emit('unvote', {voteDir: vote, videoId: id[1]});
 
 		} else if (document.getElementsByClassName('downvotecolor').length > 0) {
-			this.classList.add('upvotecolor');
+			elem.classList.add('upvotecolor');
 			document.getElementById("thumbs-down." + id[1]).classList.remove('downvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
 			socket.emit('unvote', {voteDir: 'downvote', videoId: id[1]});
 		} 
 		else {
-			this.classList.add('upvotecolor');
+			elem.classList.add('upvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
 		}
 	} else {
 		vote = 'downvote';
 		if (document.getElementsByClassName('downvotecolor').length > 0) {
-			this.classList.remove('downvotecolor');
+			elem.classList.remove('downvotecolor');
 			socket.emit('unvote', {voteDir: vote, videoId: id[1]});
 		} else if (document.getElementsByClassName('upvotecolor').length > 0) {
-			this.classList.add('downvotecolor');
+			elem.classList.add('downvotecolor');
 			document.getElementById("thumbs-up." + id[1]).classList.remove('upvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
 			socket.emit('unvote', {voteDir: 'upvote', videoId: id[1]});
 		} 
 		else {
-			this.classList.add('downvotecolor');
+			elem.classList.add('downvotecolor');
 			socket.emit('vote', {voteDir: vote, videoId: id[1]});
 		}
 	}
@@ -57,15 +57,15 @@ var vote = function() {
 
 	addLoadEvent(function() {
 		var messageInput = document.querySelector('.messageInput');
-		var usernameInput = document.querySelector('.usernameInput');
+		/*var usernameInput = document.querySelector('.usernameInput');*/
 		var chatArea = document.querySelector('.chatArea')
 		var messages = document.querySelector('.messages');
 
 		var username = random_username();
 		var connected = false;
-		var usernameSubmit = document.querySelector('.usernameSubmit');
+		/*var usernameSubmit = document.querySelector('.usernameSubmit');*/
 		var messageSubmit = document.querySelector('.messageSubmit');
-		usernameSubmit.onclick = setUsername;
+		/*usernameSubmit.onclick = setUsername;*/
 		messageSubmit.onclick = messageSend;
 
 		var urlinput = document.querySelector('.form-control');
@@ -75,7 +75,6 @@ var vote = function() {
 		var videoUrlInput = document.querySelector('#video-url')
 		var videoSubmit = document.querySelector('#submit-video');
 		videoSubmit.onclick = submitVideo;
-
 
 		socket.emit('join room', {roomName: document.body.dataset.room, userName: username});
 
@@ -93,11 +92,11 @@ var vote = function() {
 			//addMessage(username, message);
 		}
 
-		usernameInput.onkeypress = function(e) {
+/*		usernameInput.onkeypress = function(e) {
 			if (e.keyCode == 13) {
 				setUsername();
 			}
-		}
+		}*/
 
 		function submitUrl() {
 			var url = urlinput.value;
@@ -106,10 +105,16 @@ var vote = function() {
 		}
 
 		function setUsername() {
-
 			console.log(username);
 			//sessionStorage.setItem('username', username);
 			console.log(document.body.dataset.room);
+
+		/*	if(usernameInput.value != "") {
+				username = usernameInput.value;
+				usernameInput.style.display = "none";
+				usernameSubmit.style.display = "none";
+				messageInput.style.display = "";
+				messageSubmit.style.display = "";*/
 		}
 
 		function addMessage(username, message) {
