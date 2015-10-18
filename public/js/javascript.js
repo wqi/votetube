@@ -4,19 +4,11 @@
 		var topBar = document.getElementById("top-bar");
 		var sideBar = document.getElementById("side-bar");
 		var pin = document.getElementById("pin");
-		var thumbsUp = document.getElementsByClassName("fa-thumbs-up")[0];
-		var thumbsDown = document.getElementsByClassName("fa-thumbs-down")[0];
 		var voteCounter = document.getElementById("counter");
 		var tabs = [document.querySelector(".top-tab img"), document.querySelector(".side-tab img")];
 		pin.onclick = pinSidebar;
 		sideBar.style.right = "-" + sideBar.offsetWidth + "px";
-		thumbsUp.onclick = vote;
-		thumbsDown.onclick = vote;
-
-		function vote() {
-			// TODO: add voting events
-		}
-
+		
 		function pinSidebar() {
 			if (pin.checked) {
 				topBar.style.width = window.innerWidth - sideBar.offsetWidth + "px";
