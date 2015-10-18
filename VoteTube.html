@@ -28,8 +28,11 @@
 				<label for="pin" class="icon">
 					<i class="fa fa-thumb-tack fa-lg"></i>
 				</label>
-				<div class="btn-group btn-group-xs" role="group" id="side-bar-btns">
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#submitModal"><i class="fa fa-plus"></i> Submit Video</button>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Video URL">
+				</div>
+				<div class="btn-group" role="group" id="side-bar-btns">
+					<button type="button" class="btn btn-primary">Submit Video</button>
 				</div>
 			</div>
 			<div class="voting">
@@ -70,31 +73,6 @@
 	                <div class="modal-footer">
 	                    <button id="closebutton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	                    <button id="createbutton" type="button" class="btn btn-login">Create</button>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-
-	    <!-- Submit Video Modal -->
-	    <div class="modal fade" id="submitModal" tabindex="-1" role="dialog">
-	    	<div class="modal-dialog modal-sm" role="document">
-	    		<div class="modal-content">
-	    			<div class="modal-header">
-	    				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	    				<h4 class="modal-title" id="submitModalLabel">Submit a video</h4>
-	    			</div>
-	    			<div class="modal-body">
-	    				<p class="sign-error" style="display:none">Please make sure all fields are valid</p>
-	                    <form>
-	                        <div>
-	                            <label>Video URL:</label>
-	                            <input id="video-url" type="text" name="URL" placeholder="Video URL" />
-	                        </div>
-	                    </form>
-	                </div>
-	                <div class="modal-footer">
-	                	<button id="closebutton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>.
-	                	<button id="submitbutton" type="button" class="btn btn-primary">Submit</button>
 	                </div>
 	            </div>
 	        </div>
