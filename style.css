@@ -185,6 +185,10 @@ form {
 	text-align: center;
 }
 
+.form-control {
+	border-radius: 3px !important;
+}
+
 #createbutton {
 	background-color: #3a5ef2;
 	color: white;
@@ -207,10 +211,9 @@ form {
     padding: 10px 5px;
     padding-right: 53px;
     float: left;   
-    font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
     border: 0;
     background: #eee;
-    border-radius: 3px 0 0 3px;     
+    border-radius: 3px;     
 }
 
 .usernameInput {
