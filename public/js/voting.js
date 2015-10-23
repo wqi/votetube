@@ -89,5 +89,5 @@ var sortVideos = function(videoArray) {
 		sortedVideos.push(id);
 	}
 
-	return sortedVideos;
+	return sortedVideos.reverse();
 }
