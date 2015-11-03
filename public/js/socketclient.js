@@ -52,6 +52,8 @@ var vote2 = function(elem2) {
 	vote(elem2);
 };
 
+var username = "";
+
 (function() {
 	"use strict";
 
@@ -75,7 +77,7 @@ var vote2 = function(elem2) {
 		var chatArea = document.querySelector('.chatArea')
 		var messages = document.querySelector('.messages');
 
-		var username = random_username();
+		username = random_username();
 		var connected = false;
 		/*var usernameSubmit = document.querySelector('.usernameSubmit');*/
 		var messageSubmit = document.querySelector('.messageSubmit');

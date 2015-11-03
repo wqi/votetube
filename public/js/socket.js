@@ -1,4 +1,5 @@
 var socket = io('votetube.cloudapp.net');
+var videoQueue = [];
 
 socket.on('sync video', function(data) {
 	console.log('Video synced');
@@ -16,20 +17,20 @@ socket.on('connect',function() {
 //socket.emit('join room', {roomName: 'main', userName: 'asdf'});
 
 socket.on('video list', function(data) {
-	var sorted = sortVideos(data);
-	console.log(sorted);
-	$('.voting').empty();
-	for (var i=0; i<sorted.length; i++) {
-		generateVoteEntry();
-		var id = sorted[i].split('?v=')[1].split('&')[0];
-		getVideoInfo(id, updateVoteEntry, i);
-	}
+	console.log(data);
+	videoQueue = sortVideos(data);
+	console.log(videoQueue);
+	refreshQueue(videoQueue);
 });
 
 socket.on('video added', function(data) {
-	generateVoteEntry();
-	var id = data.url.split('?v=')[1].split('&')[0];
-	getVideoInfo(id, updateVoteEntry, videoQueue.length);
+	videoQueue.push(data);
+	videoQueue = insertionSortByPoints(videoQueue).reverse();
+	refreshQueue(videoQueue);
+
+	// generateVoteEntry();
+	// var id = data.url.split('?v=')[1].split('&')[0];
+	// getVideoInfo(, updateVoteEntry, videoQueue.length);
 })
 
 socket.on('video ended', function(data) {
@@ -37,12 +38,7 @@ socket.on('video ended', function(data) {
 		if (videoQueue[i].id == data.videoId) {
 			videoQueue.splice(i, 1);
 			console.log(videoQueue);
-			$('.voting').empty();
-			for (var j=0; j<videoQueue.length; j++) {
-				generateVoteEntry();
-				var id = videoQueue[j].id;
-				getVideoInfo(id, updateVoteEntry, j);
-			}
+			refreshQueue(videoQueue);
 			return;
 		}
 	}
@@ -51,7 +47,10 @@ socket.on('video ended', function(data) {
 socket.on('video voted', function(data) {
 	for (var i=0; i<videoQueue.length; i++) {
 		if (videoQueue[i].id == data.videoId) {
-			$('.video-entry:nth-child(' + (i+1) + ')').children('.counter').text(data.points);
+			// $('.video-entry:nth-child(' + (i+1) + ')').children('.counter').text(data.points);
+			videoQueue[i].points = data.points;
+			break;
 		}
 	}
+	refreshQueue(videoQueue);
 });

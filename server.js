@@ -34,6 +34,7 @@ app.configure(function(){
 	app.set('views', __dirname +'/views');
 
 	app.use(device.capture());
+	console.log('Application running on port ' + runningPortNumber)
 });
 
 
@@ -66,7 +67,9 @@ function Video(videoURL) {
 	this.name; // TODO: fetch video name somehow
 	this.uploader;
 	this.length;
-	this.votedUsers = [];
+	this.thumbURL;
+	this.upvotedUsers = [];
+	this.downvotedUsers = [];
 	this.videoId = url.parse(videoURL, true).query.v;
 }
 
@@ -96,7 +99,7 @@ io.on('connection', function (socket) {
   function callback(roomExists: boolean) { ... }
   */
 
-  socket.on('join room', function (data) {
+	socket.on('join room', function (data) {
 		var roomName = data.roomName;
 		var userName = data.userName;
 
@@ -150,6 +153,7 @@ io.on('connection', function (socket) {
 				video.name = res.items[0].snippet.title;
 				video.length = moment.duration(res.items[0].contentDetails.duration).asSeconds();
 				video.uploader = res.items[0].snippet.channelTitle;
+				video.thumbURL = res.items[0].snippet.thumbnails.default.url;
 				room.videos[video.videoId] = video;
 				io.to(room.roomName).emit('video added', video);
 				console.log(room.videos);
@@ -163,13 +167,14 @@ io.on('connection', function (socket) {
 		}
 
 		var video = room.videos[data.videoId];
-		if (!_.contains(video.votedUsers, user)) {
+		if (!_.contains(video.upvotedUsers, user) || !_.contains(video.downvotedUsers, user)) {
 			if (data.voteDir === "upvote") {
 				video.points++;
+				video.upvotedUsers.push(user);
 			} else if (data.voteDir === "downvote") {
 				video.points--;
+				video.downvotedUsers.push(user);
 			}
-			video.votedUsers.push(user);
 			io.to(room.roomName).emit("video voted", video);
 			console.log(room.videos);
 		} else {
@@ -185,19 +190,21 @@ io.on('connection', function (socket) {
 
 		var video = room.videos[data.videoId];
 		// ensure user has voted for this video
-		if (_.contains(video.votedUsers, user)) {
-			if (data.voteDir === "upvote") {
-				video.points--;
-			} else if (data.voteDir === "downvote") {
-				video.points++;
-			}
-
+		if (data.voteDir === "upvote" && _.contains(video.upvotedUsers, user)) {
+			video.points--;
 			// remove user from voted user list
-			var userIndex = video.votedUsers.indexOf(user);
+			var userIndex = video.upvotedUsers.indexOf(user);
 			if (userIndex > -1) {
-				video.votedUsers.splice(userIndex, 1);
+				video.upvotedUsers.splice(userIndex, 1);
 			}
-
+			io.to(room.roomName).emit("video voted", video);
+		} else if (data.voteDir === "downvote" && _.contains(video.downvotedUsers, user)) {
+			video.points++;
+			// remove user from voted user list
+			var userIndex = video.downvotedUsers.indexOf(user);
+			if (userIndex > -1) {
+				video.downvotedUsers.splice(userIndex, 1);
+			}
 			io.to(room.roomName).emit("video voted", video);
 		} else {
 			var msg = "You have not voted yet, you cannot unvote!";

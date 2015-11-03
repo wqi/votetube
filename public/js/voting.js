@@ -13,7 +13,15 @@ $(function() {
 });
 
 var apiKey = 'AIzaSyACwwIf-fpEqbbjWd7Ae09je7ixYyJsqc4';
-var videoQueue = [];
+
+var refreshQueue = function(queue) {
+	$('.voting').empty();
+	for (var i=0; i<queue.length; i++) {
+		generateVoteEntry();
+		// var id = sorted[i].split('?v=')[1].split('&')[0];
+		getVideoInfo(queue[i].videoId, updateVoteEntry, i);
+	}
+}
 
 var generateVoteEntry = function() {
 	var domBlock =
@@ -61,33 +69,66 @@ var updateVoteEntry = function(data, n) {
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').empty();
 	$('.video-entry:nth-child(' + (n+1) + ')').children('.video-thumbnail').append('<img src="' + data.thumbURL + '" width="90px">');
 
-	var thumbsUp = document.getElementById("thumbs-up." + data.id);
-	var thumbsDown = document.getElementById("thumbs-down." + data.id);
+	var thumbsUp = $("#thumbs-up." + data.id);
+	var thumbsDown = $("#thumbs-down." + data.id);
 	if (thumbsUp !== undefined && thumbsDown !== undefined) {
-		thumbsUp.setAttribute('onclick','vote(\'' + thumbsUp.id + '\');');
-		thumbsDown.setAttribute('onclick','vote(\'' + thumbsDown.id + '\');');
+		thumbsUp.attr('onclick','vote(\'' + thumbsUp.id + '\');');
+		thumbsDown.attr('onclick','vote(\'' + thumbsDown.id + '\');');
 	}
 
-	videoQueue[n] = data;
+	for (var i=0; i<videoQueue.length; i++) {
+		if (videoQueue[i].videoId == data.id) {
+			if (videoQueue[i].upvotedUsers.includes(username)) {
+				thumbsUp.addClass('upvotecolor');
+			} else if (videoQueue[i].downvotedUsers.includes(username)) {
+				thumbsDown.addClass('downvotecolor');
+			}
+		}
+	}
+
+	// videoQueue[n] = data;
+}
+
+var insertionSortByPoints = function(array) {
+	for (var i=0; i<array.length; i++) {
+		var j = i;
+		while (j > 0 && array[j-1].points > array[j].points) {
+			var temp = array[j-1];
+			array[j-1] = array[j];
+			array[j] = temp;
+			j--;
+		}
+	}
+	return array;
 }
 
 var sortVideos = function(videoArray) {
-	var tuples = [];
+	// var tuples = [];
 	var sortedVideos = [];
+	// console.log(videoArray);
 
-	for (var video in videoArray) {
-		tuples.push([videoArray[video].url, videoArray[video].points]);
+	for (var key in videoArray) {
+		if (videoArray.hasOwnProperty(key)) {
+			var video = videoArray[key];
+			sortedVideos.push(video);
+		}
 	}
-	tuples.sort(function(a, b) {
-		a = a[1];
-		b = b[1];
+	// console.log(sortedVideos);
 
-		return a < b ? -1 : (a > b ? 1 : 0);
-	});
-	for (var i = 0; i < tuples.length; i++) {
-		var id = tuples[i][0];
-		sortedVideos.push(id);
-	}
+	// insertion sort since most of the time it's almost sorted
+	return insertionSortByPoints(sortedVideos).reverse();
 
-	return sortedVideos.reverse();
+	// sortedVideos.sort(function(a, b) {
+	// 	a = a.points;
+	// 	b = b.points;
+
+	// 	return a < b ? -1 : (a > b ? 1 : 0);
+	// });
+	// for (var i = 0; i < tuples.length; i++) {
+	// 	var id = tuples[i][0];
+	// 	sortedVideos.push(id);
+	// }
+
+	// return sortedVideos.reverse();
 }
+
